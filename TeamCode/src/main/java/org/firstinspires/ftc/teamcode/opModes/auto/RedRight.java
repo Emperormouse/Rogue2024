@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.opModes.auto;
 
-import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
@@ -8,7 +7,6 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.roadrunner.subsystems.MecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.subsystems.Robot;
 
 //This op mode uses the claw and slides but they haven't been tuned yet. Use one of the other ones

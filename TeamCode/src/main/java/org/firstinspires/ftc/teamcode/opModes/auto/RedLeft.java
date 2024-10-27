@@ -7,9 +7,10 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.roadrunner.subsystems.MecanumDrive;
 import org.firstinspires.ftc.teamcode.roadrunner.subsystems.Robot;
 
+//This op mode uses the claw and slides but they haven't been tuned yet. Use one of the other ones
+// to test trajectory
 @Autonomous(name = "RedLeft")
 public class RedLeft extends LinearOpMode {
     @Override
