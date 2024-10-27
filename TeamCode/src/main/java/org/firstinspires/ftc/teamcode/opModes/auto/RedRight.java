@@ -18,7 +18,7 @@ public class RedRight extends LinearOpMode {
     @Override
     public void runOpMode() {
         Pose2d startPose = new Pose2d(55, -60, Math.toRadians(180));
-        Robot bot = new Robot(hardwareMap, startPose, telemetry);
+        Robot bot = new Robot(hardwareMap, startPose);
 
         Actions.runBlocking(new SequentialAction(
                 bot.drive.actionBuilder(startPose)
@@ -29,17 +29,7 @@ public class RedRight extends LinearOpMode {
                 bot.drive.actionBuilder(new Pose2d(-55, -55, Math.toRadians(-135)))
                         .strafeToLinearHeading(new Vector2d(48, -45), Math.toRadians(90)).build(),
 
-                new ParallelAction(
-                        bot.arm.extendAction(),
-                        bot.slides.extendAction()
-                ),
-
-                bot.claw.closeAction(),
-
-                new ParallelAction(
-                        bot.arm.extendAction(),
-                        bot.slides.extendAction()
-                ),
+                bot.grab(),
 
                 bot.drive.actionBuilder(new Pose2d(48, -45, Math.toRadians(90)))
                         .strafeToLinearHeading(new Vector2d(-55, -55), Math.toRadians(-135)).build(),
@@ -49,17 +39,7 @@ public class RedRight extends LinearOpMode {
                 bot.drive.actionBuilder(new Pose2d(-55, -55, Math.toRadians(-135)))
                         .strafeToLinearHeading(new Vector2d(59, -45), Math.toRadians(90)).build(),
 
-                new ParallelAction(
-                        bot.arm.extendAction(),
-                        bot.slides.extendAction()
-                ),
-
-                bot.claw.closeAction(),
-
-                new ParallelAction(
-                        bot.arm.extendAction(),
-                        bot.slides.extendAction()
-                ),
+                bot.grab(),
 
                 bot.drive.actionBuilder(new Pose2d(59, -45, Math.toRadians(90)))
                         .strafeToLinearHeading(new Vector2d(-55, -55), Math.toRadians(-135)).build(),
@@ -70,17 +50,7 @@ public class RedRight extends LinearOpMode {
                         .strafeToLinearHeading(new Vector2d(40, -55), Math.toRadians(-30))
                         .strafeToLinearHeading(new Vector2d(50, -26), Math.toRadians(0)).build(),
 
-                new ParallelAction(
-                        bot.arm.extendAction(),
-                        bot.slides.extendAction()
-                ),
-
-                bot.claw.closeAction(),
-
-                new ParallelAction(
-                        bot.arm.extendAction(),
-                        bot.slides.extendAction()
-                )
+                bot.grab()
 
                 )
         );

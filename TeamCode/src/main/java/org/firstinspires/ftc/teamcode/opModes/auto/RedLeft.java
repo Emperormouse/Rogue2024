@@ -8,64 +8,54 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.roadrunner.subsystems.MecanumDrive;
+import org.firstinspires.ftc.teamcode.roadrunner.subsystems.Robot;
 
 @Autonomous(name = "RedLeft")
 public class RedLeft extends LinearOpMode {
     @Override
     public void runOpMode() {
         Pose2d startPose = new Pose2d(-40, -60, Math.toRadians(180));
-        MecanumDrive drive = new MecanumDrive(hardwareMap, startPose);
-
-        double timeToDropBlock = 0.5;
-        double timeToRotateArm = 1.5;
-        double timeToGrabBlock = 0.5;
+        Robot bot = new Robot(hardwareMap, startPose);
 
         Actions.runBlocking(new SequentialAction(
-                drive.actionBuilder(startPose)
-                        .strafeToLinearHeading(new Vector2d(-55, -55), Math.toRadians(-135))
-                        //open claw
-                        .waitSeconds(timeToDropBlock)
+                bot.drive.actionBuilder(startPose)
+                        .strafeToLinearHeading(new Vector2d(-55, -55), Math.toRadians(-135)).build(),
 
-                        .strafeToLinearHeading(new Vector2d(-48, -45), Math.toRadians(90))
-                        //extend arm
-                        .waitSeconds(timeToRotateArm)
-                        //close claw
-                        .waitSeconds(timeToGrabBlock)
-                        //retract arm
-                        .waitSeconds(timeToRotateArm)
+                bot.claw.openAction(),
 
-                        .strafeToLinearHeading(new Vector2d(-55, -55), Math.toRadians(-135))
-                        //open claw
-                        .waitSeconds(timeToDropBlock)
+                bot.drive.actionBuilder(startPose)
+                        .strafeToLinearHeading(new Vector2d(-48, -45), Math.toRadians(90)).build(),
 
-                        .strafeToLinearHeading(new Vector2d(-58, -45), Math.toRadians(90))
-                        //extend arm
-                        .waitSeconds(timeToRotateArm)
-                        //close claw
-                        .waitSeconds(timeToGrabBlock)
-                        //retract arm
-                        .waitSeconds(timeToRotateArm)
+                bot.grab(),
 
-                        .strafeToLinearHeading(new Vector2d(-55, -55), Math.toRadians(-135))
-                        //open claw
-                        .waitSeconds(timeToDropBlock)
+                bot.drive.actionBuilder(startPose)
+                        .strafeToLinearHeading(new Vector2d(-55, -55), Math.toRadians(-135)).build(),
 
-                        .strafeToLinearHeading(new Vector2d(-50, -26), Math.toRadians(180))
-                        //extend arm
-                        .waitSeconds(timeToRotateArm)
-                        //close claw
-                        .waitSeconds(timeToGrabBlock)
-                        //retract arm
-                        .waitSeconds(timeToRotateArm)
+                bot.claw.openAction(),
 
-                        .strafeToLinearHeading(new Vector2d(-55, -55), Math.toRadians(-135))
-                        //open claw
-                        .waitSeconds(timeToDropBlock)
+                bot.drive.actionBuilder(startPose)
+                        .strafeToLinearHeading(new Vector2d(-58, -45), Math.toRadians(90)).build(),
 
+                bot.grab(),
 
-                        .strafeToLinearHeading(new Vector2d(-40, -60), Math.toRadians(90))
+                bot.drive.actionBuilder(startPose)
+                        .strafeToLinearHeading(new Vector2d(-55, -55), Math.toRadians(-135)).build(),
 
-                        .build()
+                bot.claw.openAction(),
+
+                bot.drive.actionBuilder(startPose)
+                        .strafeToLinearHeading(new Vector2d(-50, -26), Math.toRadians(180)).build(),
+
+                bot.grab(),
+
+                bot.drive.actionBuilder(startPose)
+                        .strafeToLinearHeading(new Vector2d(-55, -55), Math.toRadians(-135)).build(),
+
+                bot.claw.openAction(),
+
+                bot.drive.actionBuilder(startPose)
+                        .strafeToLinearHeading(new Vector2d(-40, -60), Math.toRadians(90)).build()
+
                 )
         );
     }
