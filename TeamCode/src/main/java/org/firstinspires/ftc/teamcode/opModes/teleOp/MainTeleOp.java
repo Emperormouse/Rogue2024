@@ -5,20 +5,25 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.teamcode.subsystems.Arm;
+import org.firstinspires.ftc.teamcode.subsystems.Claw;
+import org.firstinspires.ftc.teamcode.subsystems.Slides;
 
 @TeleOp
 public class MainTeleOp extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-        // Declare our motors
-        // Make sure your ID's match your configuration
         DcMotor frontLeftMotor = (DcMotorEx) hardwareMap.dcMotor.get("leftFront");
         DcMotor backLeftMotor = (DcMotorEx) hardwareMap.dcMotor.get("leftBack");
         DcMotor frontRightMotor = (DcMotorEx) hardwareMap.dcMotor.get("rightBack");
         DcMotor backRightMotor = (DcMotorEx) hardwareMap.dcMotor.get("rightFront");
-        DcMotor slidemotor1 = (DcMotorEx) hardwareMap.dcMotor.get("slide1");
-        DcMotor slidemotor2 = (DcMotorEx) hardwareMap.dcMotor.get("slide2");
-        DcMotor slidemotor3 = (DcMotorEx) hardwareMap.dcMotor.get("slide3");
+
+        //Defined in org.firstinspires.ftc.teamcode.subsystems
+        Slides slides = new Slides(hardwareMap);
+        Arm arm = new Arm(hardwareMap);
+        Claw claw = new Claw(hardwareMap);
 
         // Reverse the right side motors. This may be wrong for your setup.
         // If your robot moves backwards when commanded to go forwards,
@@ -31,7 +36,7 @@ public class MainTeleOp extends LinearOpMode {
 
         if (isStopRequested()) return;
         while (opModeIsActive()) {
-            double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
+            double y = gamepad1.left_stick_y;
             double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
             double rx = gamepad1.right_stick_x;
 
@@ -49,27 +54,31 @@ public class MainTeleOp extends LinearOpMode {
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
 
-            slidemotor1.setPower(0);
-            slidemotor2.setPower(0);
-
-            if (gamepad1.a) {
-
-                slidemotor1.setPower(1);
-                slidemotor2.setPower(1);
+            arm.stop();
+            if (gamepad2.left_stick_y < 0) { //Reversed direction, may or may not be more intuitive
+                arm.raise();
             }
-            if (gamepad1.b) {
-
-                slidemotor1.setPower(-1);
-                slidemotor2.setPower(-1);
-
-            }
-            slidemotor3.setPower(0);
-            if (gamepad1.y ){
-
-                slidemotor3.setPower(1);
-            }
-            if (gamepad1.x ){
-                slidemotor3.setPower(-1);
+            if (gamepad2.left_stick_y > 0) {
+                arm.lower();
             }
 
-        }}}
+            slides.stop();
+            if (gamepad2.right_stick_y > 0) {
+                slides.extend();
+            }
+            if (gamepad2.right_stick_y < 0) {
+                slides.retract();
+            }
+
+            if (gamepad2.a) {
+                if (claw.isClosed()) //Toggle
+                    claw.open();
+                else
+                    claw.close();
+            }
+
+            //telemetry.addLine("arm: " + arm.getPos());
+            //telemetry.addLine("slides: " + slides.getPos());
+        }
+    }
+}

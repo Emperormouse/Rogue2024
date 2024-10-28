@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.roadrunner.subsystems;
+package org.firstinspires.ftc.teamcode.subsystems;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
@@ -15,7 +15,7 @@ public class Slides {
     private DcMotor motor;
 
     public Slides(HardwareMap hardwareMap) {
-        motor = hardwareMap.get(DcMotor.class, "liftMotor");
+        motor = hardwareMap.get(DcMotor.class, "slide3");
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
@@ -25,13 +25,14 @@ public class Slides {
         motor.setPower(1.0);
     }
 
-    public void retract() {
-        motor.setPower(-1.0);
+    public void retract() { motor.setPower(-1.0);
     }
 
     public void stop() {
         motor.setPower(0.0);
     }
+
+    public int getPos() { return motor.getCurrentPosition(); }
 
     public class SetHeight implements Action {
         private int targetTicks;

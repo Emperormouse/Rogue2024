@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.roadrunner.subsystems;
+package org.firstinspires.ftc.teamcode.subsystems;
 
 import androidx.annotation.NonNull;
 
@@ -27,15 +27,16 @@ public class Claw {
         claw.setPosition(OPEN);
     }
 
+    public boolean isClosed() {return claw.getPosition() == CLOSED; }
+
 
     //Roadrunner below here
 
     public class SetClawPosition implements Action {
-        private long startTime;
         private long endTime;
         public SetClawPosition(double position, double duration) {
             claw.setPosition(position);
-            startTime = System.currentTimeMillis();
+            long startTime = System.currentTimeMillis();
             endTime = startTime + (int)(duration * 1000);
         }
 

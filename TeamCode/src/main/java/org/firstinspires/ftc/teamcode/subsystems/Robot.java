@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.roadrunner.subsystems;
+package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
@@ -26,15 +26,15 @@ public class Robot {
     public Action grab() {
         return new SequentialAction(
                 new ParallelAction(
-                        arm.extendAction(),
-                        slides.extendAction()
+                        arm.lowerAction(),
+                        slides.retractAction()
                 ),
 
                 claw.closeAction(),
 
                 new ParallelAction(
-                        arm.retractAction(),
-                        slides.retractAction()
+                        arm.raiseAction(),
+                        slides.extendAction()
                 )
         );
     }
