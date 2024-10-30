@@ -82,8 +82,8 @@ public class MainTeleOp extends LinearOpMode {
                     claw.close();
             }
 
-            //telemetry.addLine("arm: " + arm.getPos());
-            //telemetry.addLine("slides: " + slides.getPos());
+            telemetry.addData("arm", arm.getPos());
+            telemetry.addData("slides", slides.getPos());
         }
     }
 }
