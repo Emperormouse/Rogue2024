@@ -17,13 +17,13 @@ public class Arm {
 
     public void raise() {
         arm1.setPower(1.0);
-        arm1.setPower(1.0);
+        arm1.setPower(-1.0);
 
     }
 
     public void lower() {
         arm1.setPower(-1.0);
-        arm1.setPower(-1.0);
+        arm1.setPower(1.0);
     }
 
     public void stop() {
@@ -35,7 +35,7 @@ public class Arm {
         final double p = 0.01;
         int diff = targetTicks - arm1.getCurrentPosition();
         arm1.setPower(diff * p);
-        arm2.setPower(diff * p);
+        arm2.setPower(-1 * diff * p);
     }
 
     public int getPos() {
