@@ -15,7 +15,7 @@ public class Slides {
     private DcMotor motor;
 
     public Slides(HardwareMap hardwareMap) {
-        motor = hardwareMap.get(DcMotor.class, "slide3");
+        motor = hardwareMap.get(DcMotor.class, "slides");
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 

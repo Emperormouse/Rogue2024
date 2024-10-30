@@ -35,6 +35,9 @@ public class MainTeleOp extends LinearOpMode {
         waitForStart();
 
         if (isStopRequested()) return;
+
+        int targetArmTicks = arm.getPos();
+
         while (opModeIsActive()) {
             double y = gamepad1.left_stick_y;
             double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
@@ -57,10 +60,12 @@ public class MainTeleOp extends LinearOpMode {
             arm.stop();
             if (gamepad2.left_stick_y < 0) { //Reversed direction, may or may not be more intuitive
                 arm.raise();
-            }
-            if (gamepad2.left_stick_y > 0) {
+                targetArmTicks = arm.getPos();
+            } else if (gamepad2.left_stick_y > 0) {
                 arm.lower();
+                targetArmTicks = arm.getPos();
             }
+            arm.setPosition(targetArmTicks);
 
             slides.stop();
             if (gamepad2.right_stick_y > 0) {
@@ -70,7 +75,7 @@ public class MainTeleOp extends LinearOpMode {
                 slides.retract();
             }
 
-            if (gamepad2.a) {
+            if (gamepad2.a || gamepad2.right_bumper) {
                 if (claw.isClosed()) //Toggle
                     claw.open();
                 else
