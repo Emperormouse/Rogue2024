@@ -11,8 +11,13 @@ public class Arm {
     private DcMotor arm1, arm2;
 
     public Arm(HardwareMap hardwareMap) {
-        DcMotor arm1 = hardwareMap.dcMotor.get("arm1");
-        DcMotor arm2 = hardwareMap.dcMotor.get("arm2");
+        arm1 = hardwareMap.dcMotor.get("arm1");
+        arm2 = hardwareMap.dcMotor.get("arm2");
+
+        arm1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        arm2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        arm1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        arm2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void raise() {
