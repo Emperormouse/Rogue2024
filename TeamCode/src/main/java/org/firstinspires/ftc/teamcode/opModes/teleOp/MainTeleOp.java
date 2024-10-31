@@ -60,18 +60,21 @@ public class MainTeleOp extends LinearOpMode {
             //arm.setPosition(targetArmTicks);
             if (gamepad2.left_stick_y < 0) { //Reversed direction, may or may not be more intuitive
                 arm.raise();
-                targetArmTicks = arm.getPos();
+                //targetArmTicks = arm.getPos();
             } else if (gamepad2.left_stick_y > 0) {
                 arm.lower();
-                targetArmTicks = arm.getPos();
+                //targetArmTicks = arm.getPos();
+            } else {
+                arm.stop();
             }
 
-            slides.stop();
+
             if (gamepad2.right_stick_y > 0) {
                 slides.extend();
-            }
-            if (gamepad2.right_stick_y < 0) {
+            } else if (gamepad2.right_stick_y < 0) {
                 slides.retract();
+            } else {
+                slides.stop();
             }
 
             if (gamepad2.a || gamepad2.right_bumper) {
