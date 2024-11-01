@@ -16,14 +16,15 @@ public class Arm {
 
         arm1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         arm2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        arm1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        arm2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        arm1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        arm2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void raise() {
         arm1.setPower(1.0);
         arm1.setPower(-1.0);
-
     }
 
     public void lower() {

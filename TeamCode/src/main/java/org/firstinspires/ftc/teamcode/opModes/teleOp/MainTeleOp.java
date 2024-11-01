@@ -57,15 +57,15 @@ public class MainTeleOp extends LinearOpMode {
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
 
-            //arm.setPosition(targetArmTicks);
             if (gamepad2.left_stick_y < 0) { //Reversed direction, may or may not be more intuitive
                 arm.raise();
-                //targetArmTicks = arm.getPos();
+                targetArmTicks = arm.getPos();
             } else if (gamepad2.left_stick_y > 0) {
                 arm.lower();
-                //targetArmTicks = arm.getPos();
+                targetArmTicks = arm.getPos();
             } else {
                 arm.stop();
+                arm.setPosition(targetArmTicks);
             }
 
 
