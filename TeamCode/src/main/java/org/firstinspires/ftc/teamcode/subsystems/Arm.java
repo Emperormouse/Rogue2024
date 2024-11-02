@@ -17,7 +17,8 @@ public class Arm {
     /* KP is used for moving arm to its desired position
        KI adjusts for a unchanging variable, such as gravity
        KD adjusts for a random variable, like a bot bumping into yours
-        (KD is VERY sensitive compared to the other two) */
+        (KD is VERY sensitive compared to the other two)
+     */
     final double kP = 0, kI = 0, kD = 0;
 
     public Arm(HardwareMap hardwareMap) {
