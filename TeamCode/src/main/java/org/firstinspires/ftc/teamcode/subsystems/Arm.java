@@ -9,17 +9,7 @@ import com.qualcomm.robotcore.hardware.*;
 public class Arm {
 
     private DcMotor arm1, arm2;
-    private double prevTime =  Double.NaN;
-    private double lastError = 0, integError = 0;
-    //Limits of the arm (in ticks, I guess?)
-    private double minLim = 0, maxLim = 0;
 
-    /* KP is used for moving arm to its desired position
-       KI adjusts for a unchanging variable, such as gravity
-       KD adjusts for a random variable, like a bot bumping into yours
-        (KD is VERY sensitive compared to the other two)
-     */
-    final double kP = 0, kI = 0, kD = 0;
 
     public Arm(HardwareMap hardwareMap) {
         arm1 = hardwareMap.dcMotor.get("arm1");
@@ -47,7 +37,17 @@ public class Arm {
         arm1.setPower(0.0);
         arm2.setPower(0.0);
     }
+    private double prevTime =  Double.NaN;
+    private double lastError = 0, integError = 0;
+    //Limits of the arm (in ticks, I guess?)
+    private double minLim = 0, maxLim = 0;
 
+    /* KP is used for moving arm to its desired position
+       KI adjusts for a unchanging variable, such as gravity
+       KD adjusts for a random variable, like a bot bumping into yours
+        (KD is VERY sensitive compared to the other two)
+     */
+    final double kP = 0, kI = 0, kD = 0;
     /**
      *
      * @param target The desired value the arm wants to match
