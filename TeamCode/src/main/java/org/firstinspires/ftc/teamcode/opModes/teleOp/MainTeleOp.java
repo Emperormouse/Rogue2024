@@ -17,8 +17,8 @@ public class MainTeleOp extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         DcMotor frontLeftMotor = (DcMotorEx) hardwareMap.dcMotor.get("leftFront");
         DcMotor backLeftMotor = (DcMotorEx) hardwareMap.dcMotor.get("leftBack");
-        DcMotor frontRightMotor = (DcMotorEx) hardwareMap.dcMotor.get("rightBack");
-        DcMotor backRightMotor = (DcMotorEx) hardwareMap.dcMotor.get("rightFront");
+        DcMotor frontRightMotor = (DcMotorEx) hardwareMap.dcMotor.get("rightFront");
+        DcMotor backRightMotor = (DcMotorEx) hardwareMap.dcMotor.get("rightBack");
 
         //Defined in org.firstinspires.ftc.teamcode.subsystems
         Slides slides = new Slides(hardwareMap);
