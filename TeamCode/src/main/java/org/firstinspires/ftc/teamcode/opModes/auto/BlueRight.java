@@ -8,64 +8,25 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDrive;
+import org.firstinspires.ftc.teamcode.subsystems.Robot;
 
 @Autonomous(name = "BlueRight")
 public class BlueRight extends LinearOpMode {
     @Override
     public void runOpMode() {
-        Pose2d startPose = new Pose2d(40, 60, Math.toRadians(0));
-        MecanumDrive drive = new MecanumDrive(hardwareMap, startPose);
-
-        double timeToDropBlock = 0.5;
-        double timeToRotateArm = 1.5;
-        double timeToGrabBlock = 0.5;
+        Pose2d startPose = new Pose2d(40, 60, Math.toRadians(-90));
+        Robot bot = new Robot(hardwareMap, startPose);
 
         Actions.runBlocking(new SequentialAction(
-                drive.actionBuilder(startPose)
-                        .strafeToLinearHeading(new Vector2d(55, 55), Math.toRadians(45))
+                bot.drive.actionBuilder(startPose)
+                        .strafeTo(new Vector2d(11, 37))
                         //open claw
-                        .waitSeconds(timeToDropBlock)
+                        .waitSeconds(2.0)
+                        .strafeTo(new Vector2d(20, 37))
+                        .waitSeconds(10)
 
-                        .strafeToLinearHeading(new Vector2d(48, 45), Math.toRadians(-90))
-                        //extend arm
-                        .waitSeconds(timeToRotateArm)
-                        //close claw
-                        .waitSeconds(timeToGrabBlock)
-                        //retract arm
-                        .waitSeconds(timeToRotateArm)
-
-                        .strafeToLinearHeading(new Vector2d(55, 55), Math.toRadians(45))
-                        //open claw
-                        .waitSeconds(timeToDropBlock)
-
-                        .strafeToLinearHeading(new Vector2d(58, 45), Math.toRadians(-90))
-                        //extend arm
-                        .waitSeconds(timeToRotateArm)
-                        //close claw
-                        .waitSeconds(timeToGrabBlock)
-                        //retract arm
-                        .waitSeconds(timeToRotateArm)
-
-                        .strafeToLinearHeading(new Vector2d(55, 55), Math.toRadians(45))
-                        //open claw
-                        .waitSeconds(timeToDropBlock)
-
-                        .strafeToLinearHeading(new Vector2d(50, 26), Math.toRadians(0))
-                        //extend arm
-                        .waitSeconds(timeToRotateArm)
-                        //close claw
-                        .waitSeconds(timeToGrabBlock)
-                        //retract arm
-                        .waitSeconds(timeToRotateArm)
-
-                        .strafeToLinearHeading(new Vector2d(55, 55), Math.toRadians(45))
-                        //open claw
-                        .waitSeconds(timeToDropBlock)
-
-
-                        .strafeToLinearHeading(new Vector2d(40, 60), Math.toRadians(-90))
-                        //extend arm
-                        .waitSeconds(timeToRotateArm)
+                        .strafeTo(new Vector2d(-20, 60))
+                        .strafeTo(new Vector2d(-37, 60))
 
                         .build()
                 )
