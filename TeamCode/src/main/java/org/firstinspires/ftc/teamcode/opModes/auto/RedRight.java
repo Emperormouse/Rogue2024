@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Robot;
 // to test trajectory
 @Autonomous(name = "RedRight")
 public class RedRight extends LinearOpMode {
+    private static final Pose2d startPose = new Pose2d(55, -60, Math.toRadians(90));
     @Override
     public void runOpMode() {
         Pose2d startPose = new Pose2d(55, -60, Math.toRadians(180));
@@ -20,37 +21,15 @@ public class RedRight extends LinearOpMode {
 
         Actions.runBlocking(new SequentialAction(
                 bot.drive.actionBuilder(startPose)
-                        .strafeToLinearHeading(new Vector2d(-55, -55), Math.toRadians(-135)).build(),
+                        .strafeTo(new Vector2d(11, -35))
+                        //open claw
 
-                bot.claw.openAction(),
 
-                bot.drive.actionBuilder(new Pose2d(-55, -55, Math.toRadians(-135)))
-                        .strafeToLinearHeading(new Vector2d(48, -45), Math.toRadians(90)).build(),
+                        .strafeTo(new Vector2d(9, -60))
+                        .strafeTo(new Vector2d(61, -62))
+                        .build())
 
-                bot.grab(),
+                );
 
-                bot.drive.actionBuilder(new Pose2d(48, -45, Math.toRadians(90)))
-                        .strafeToLinearHeading(new Vector2d(-55, -55), Math.toRadians(-135)).build(),
-
-                bot.claw.openAction(),
-
-                bot.drive.actionBuilder(new Pose2d(-55, -55, Math.toRadians(-135)))
-                        .strafeToLinearHeading(new Vector2d(59, -45), Math.toRadians(90)).build(),
-
-                bot.grab(),
-
-                bot.drive.actionBuilder(new Pose2d(59, -45, Math.toRadians(90)))
-                        .strafeToLinearHeading(new Vector2d(-55, -55), Math.toRadians(-135)).build(),
-
-                bot.claw.openAction(),
-
-                bot.drive.actionBuilder(new Pose2d(-55, -55, Math.toRadians(-135)))
-                        .strafeToLinearHeading(new Vector2d(40, -55), Math.toRadians(-30))
-                        .strafeToLinearHeading(new Vector2d(50, -26), Math.toRadians(0)).build(),
-
-                bot.grab()
-
-                )
-        );
     }
 }

@@ -37,64 +37,7 @@ public class Arm {
         arm1.setPower(0.0);
         arm2.setPower(0.0);
     }
-    private double prevTime =  Double.NaN;
-    private double lastError = 0, integError = 0;
-    //Limits of the arm (in ticks, I guess?)
-    private double minLim = 0, maxLim = 0;
 
-    /* KP is used for moving arm to its desired position
-       KI adjusts for a unchanging variable, such as gravity
-       KD adjusts for a random variable, like a bot bumping into yours
-        (KD is VERY sensitive compared to the other two)
-     */
-    final double kP = 0, kI = 0, kD = 0;
-    /**
-     *
-     * @param target The desired value the arm wants to match
-     * @param pos The current position of the arm
-     * @param time The current time (Just pass '1' into it since it's being constantly ran)
-     * @return - Returns the result of the PID
-     */
-    public double PID(int target, int pos, int time) {
-        final double error = target - pos;
-        final double dt = (prevTime != Double.NaN) ?
-                (double)(time - prevTime) : 0;
-
-        //Derivative and integral error
-        final double derivError = (dt != 0) ? ((error - lastError) / dt) : 0;
-        integError += error * dt;
-
-        prevTime = time;
-        lastError = error;
-
-        return checkLims((kP * error) + (kI * integError) + (kD * derivError));
-    }
-
-    /**
-     *
-     * @param output - The output for the PID.
-     * @return - If the output is less than the minimum limit, it will return the min.
-     * if greater than the maximum limit, it will return the max.
-     */
-    private double checkLims(final double output){
-        if (!Double.isNaN(minLim) && output < minLim)
-            return minLim;
-        else if (!Double.isNaN(maxLim) && output > maxLim)
-            return maxLim;
-        else
-            return output;
-    }
-
-    public void setLims(final double minLim, final double maxLim) {
-        if(minLim < maxLim) {
-            this.minLim = minLim;
-            this.maxLim = maxLim;
-        }else{
-            this.minLim = maxLim;
-            this.maxLim = minLim;
-        }
-
-    }
     public void setPosition(int targetTicks) {
         final double p = 0.01;
         int diff = targetTicks - arm1.getCurrentPosition();
