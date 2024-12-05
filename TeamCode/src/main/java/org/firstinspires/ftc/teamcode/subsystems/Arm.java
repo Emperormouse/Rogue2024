@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.*;
 public class Arm {
 
     private DcMotor arm1, arm2;
-
+    private final int maxTicks = 1000;
 
     public Arm(HardwareMap hardwareMap) {
         arm1 = hardwareMap.dcMotor.get("arm1");
@@ -17,20 +17,16 @@ public class Arm {
 
         arm1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         arm2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        arm1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        arm2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        arm1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        arm2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void raise() {
         arm1.setPower(1.0);
-        arm1.setPower(-1.0);
+        arm2.setPower(-1.0);
     }
 
     public void lower() {
         arm1.setPower(-1.0);
-        arm1.setPower(1.0);
+        arm2.setPower(1.0);
     }
 
     public void stop() {
@@ -38,11 +34,16 @@ public class Arm {
         arm2.setPower(0.0);
     }
 
-    public void setPosition(int targetTicks) {
+    public void setPosition(double fractionOfMax) {
+        int targetTicks = (int)(maxTicks * fractionOfMax);
         final double p = 0.01;
         int diff = targetTicks - arm1.getCurrentPosition();
-        arm1.setPower(diff * p);
-        arm2.setPower(-1 * diff * p);
+        double allowedError = diff * 0.01; //1% allowed error
+        while(Math.abs(diff) > Math.abs(allowedError)) {
+            diff = targetTicks - arm1.getCurrentPosition();
+            arm1.setPower(diff * p);
+            arm2.setPower(-1 * diff * p);
+        }
     }
 
     public int getPos() {

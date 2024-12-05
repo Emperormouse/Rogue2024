@@ -14,14 +14,14 @@ public class Slides {
     private final double rotationsForExtension = 5.5; //placeholder
     private DcMotor motor;
 
+    private final int maxTicks = 1000;
+
     public Slides(HardwareMap hardwareMap) {
         motor = hardwareMap.get(DcMotor.class, "slides");
         motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
-    //Manual below here
+
 
     public void extend() {
         motor.setPower(1.0);
@@ -29,12 +29,24 @@ public class Slides {
 
     public void retract() { motor.setPower(-1.0);
     }
-
     public void stop() {
         motor.setPower(0.0);
     }
 
     public int getPos() { return motor.getCurrentPosition(); }
+
+    public void setPosition(double fractionOfMax) {
+        int targetTicks = (int)(maxTicks * fractionOfMax);
+        final double p = 0.01;
+        int diff = targetTicks - motor.getCurrentPosition();
+        double allowedError = diff * 0.01; //1% allowed error
+        while(Math.abs(diff) > Math.abs(allowedError)) {
+            diff = targetTicks - motor.getCurrentPosition();
+            motor.setPower(diff * p);
+        }
+    }
+
+    //Roadrunner
 
     public class SetHeight implements Action {
         private int targetTicks;
