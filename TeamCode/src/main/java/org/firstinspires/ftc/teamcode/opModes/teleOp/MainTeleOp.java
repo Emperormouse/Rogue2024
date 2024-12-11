@@ -22,13 +22,13 @@ public class MainTeleOp extends LinearOpMode {
 
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        /*
+
         //Defined in org.firstinspires.ftc.teamcode.subsystems
         Slides slides = new Slides(hardwareMap);
         Arm arm = new Arm(hardwareMap);
         Claw claw = new Claw(hardwareMap);
 
-         */
+
 
         /* Reverse the right side motors. This may be wrong for your setup.
         If your robot moves backwards when commanded to go forwards,
@@ -61,16 +61,16 @@ public class MainTeleOp extends LinearOpMode {
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
 
-            /*
+
             if (gamepad2.left_stick_y < 0) { //Reversed direction, may or may not be more intuitive
                 arm.raise();
-                targetArmTicks = arm.getPos();
+                //targetArmTicks = arm.getPos();
             } else if (gamepad2.left_stick_y > 0) {
                 arm.lower();
-                targetArmTicks = arm.getPos();
+                //targetArmTicks = arm.getPos();
             } else {
                 arm.stop();
-                arm.setPosition(targetArmTicks);
+                //arm.setPosition(targetArmTicks);
             }
 
 
@@ -92,7 +92,7 @@ public class MainTeleOp extends LinearOpMode {
             telemetry.addData("arm", arm.getPos());
             telemetry.addData("slides", slides.getPos());
 
-             */
+
         }
     }
 }

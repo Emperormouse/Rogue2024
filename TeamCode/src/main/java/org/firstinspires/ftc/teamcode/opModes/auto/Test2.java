@@ -20,15 +20,15 @@ public class Test2 extends LinearOpMode{
 
         waitForStart();
 
-        drive.toVector(0, 800);
+        drive.toVector(0, 600);
 
         waitSeconds(2);
 
-        drive.toVector(0, -700);
+        drive.toVector(0, -500);
 
         waitSeconds(0.5);
 
-        drive.toVector(2600, 0);
+        drive.toVector(2400, 0);
 
         stop();
 

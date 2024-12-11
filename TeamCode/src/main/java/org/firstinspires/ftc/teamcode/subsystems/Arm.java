@@ -15,18 +15,24 @@ public class Arm {
         arm1 = hardwareMap.dcMotor.get("arm1");
         arm2 = hardwareMap.dcMotor.get("arm2");
 
+        arm1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        arm1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        arm2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         arm1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         arm2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void raise() {
-        arm1.setPower(1.0);
-        arm2.setPower(-1.0);
+        arm1.setPower(-1.0);
+        arm2.setPower(1.0);
     }
 
     public void lower() {
-        arm1.setPower(-1.0);
-        arm2.setPower(1.0);
+        arm1.setPower(1.0);
+        arm2.setPower(-1.0);
     }
 
     public void stop() {
@@ -34,16 +40,15 @@ public class Arm {
         arm2.setPower(0.0);
     }
 
-    public void setPosition(double fractionOfMax) {
-        int targetTicks = (int)(maxTicks * fractionOfMax);
-        final double p = 0.01;
+    public boolean setPosition(int targetTicks) {
+        final double p = 0.003;
+
         int diff = targetTicks - arm1.getCurrentPosition();
-        double allowedError = diff * 0.01; //1% allowed error
-        while(Math.abs(diff) > Math.abs(allowedError)) {
-            diff = targetTicks - arm1.getCurrentPosition();
-            arm1.setPower(diff * p);
-            arm2.setPower(-1 * diff * p);
-        }
+        //double divisor = 1.5*Math.max(Math.abs(diff), 1);
+        arm1.setPower(diff * p);
+        arm2.setPower(-diff * p);
+
+        return Math.abs(diff) >= 10;
     }
 
     public int getPos() {
@@ -52,6 +57,7 @@ public class Arm {
 
     //Roadrunner below here
 
+    /*
     public class Raise implements Action {
         private final int targetTicks = 1000;
         private final double kP = 0.01;
@@ -98,7 +104,7 @@ public class Arm {
 
     public Action raiseAction() {return new Raise(); }
     public Action lowerAction() {return new Lower(); }
-
+    */
 
 
 }

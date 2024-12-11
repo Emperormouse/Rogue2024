@@ -23,14 +23,5 @@ public class Robot {
         slides = new Slides(hardwareMap);
     }
 
-    public Action grab() {
-        return new SequentialAction(
-                arm.lowerAction(),
-                claw.closeAction(),
-                new ParallelAction(
-                        arm.raiseAction(),
-                        slides.extendAction()
-                )
-        );
-    }
+
 }

@@ -29,6 +29,7 @@ public class Claw {
 
     public boolean isClosed() {return claw.getPosition() == CLOSED; }
 
+    public double getPos() {return claw.getPosition(); }
 
     //Roadrunner below here
 

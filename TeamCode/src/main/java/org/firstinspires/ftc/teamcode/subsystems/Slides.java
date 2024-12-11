@@ -18,6 +18,8 @@ public class Slides {
 
     public Slides(HardwareMap hardwareMap) {
         motor = hardwareMap.get(DcMotor.class, "slides");
+        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
@@ -33,21 +35,21 @@ public class Slides {
         motor.setPower(0.0);
     }
 
-    public int getPos() { return motor.getCurrentPosition(); }
+    public int getPos() { return -motor.getCurrentPosition(); }
 
-    public void setPosition(double fractionOfMax) {
-        int targetTicks = (int)(maxTicks * fractionOfMax);
+    public boolean setPosition(int targetTicks) {
         final double p = 0.01;
-        int diff = targetTicks - motor.getCurrentPosition();
-        double allowedError = diff * 0.01; //1% allowed error
-        while(Math.abs(diff) > Math.abs(allowedError)) {
-            diff = targetTicks - motor.getCurrentPosition();
-            motor.setPower(diff * p);
-        }
+
+        int diff = targetTicks + motor.getCurrentPosition();
+        //double divisor = 1.5*Math.max(Math.abs(diff), 1);
+        motor.setPower(-diff * p);
+
+        return Math.abs(diff) >= Math.abs(10);
     }
 
     //Roadrunner
 
+    /*
     public class SetHeight implements Action {
         private int targetTicks;
         private final double kP = 0.01;
@@ -76,7 +78,7 @@ public class Slides {
     }
     public Action extendAction() { return new SetHeight(1.0); }
     public Action retractAction() { return new SetHeight(0.0); }
-
+    */
 
 
 }

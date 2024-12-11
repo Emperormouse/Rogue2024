@@ -16,20 +16,39 @@ public class Test1 extends LinearOpMode{
     }
 
     public void runOpMode() throws InterruptedException {
-        //Robot bot = new Robot(hardwareMap, telemetry);
-        Drive drive = new Drive(hardwareMap, telemetry);
+        Robot bot = new Robot(hardwareMap, telemetry);
+        //Drive drive = new Drive(hardwareMap, telemetry);
+        while(!isStarted()) {
+            bot.arm.setPosition(1000);
+        }
 
-        waitForStart();
+        bot.drive.toVector(0, 600);
 
-        drive.toVector(0, 800);
+        waitSeconds(1);
 
-        waitSeconds(2);
+        long startTime = System.currentTimeMillis();
+        while(System.currentTimeMillis() - startTime < 2 * 1000) {
+            bot.arm.setPosition(800);
+            bot.slides.setPosition(600);
+        }    
+        startTime = System.currentTimeMillis();
+        while(System.currentTimeMillis() - startTime < 2 * 1000) {
+            bot.arm.setPosition(700);
+            bot.slides.setPosition(600);
+        }
+        startTime = System.currentTimeMillis();
+        while(System.currentTimeMillis() - startTime < 2 * 1000) {
+            bot.arm.setPosition(700);
+            bot.slides.setPosition(0);
+        }
 
-        drive.toVector(0, -700);
+        bot.drive.toVector(0, -500);
 
-        waitSeconds(0.5);
+        while(bot.arm.setPosition(0) || bot.slides.setPosition(0));
 
-        drive.toVector(2200, 0);
+        waitSeconds(1);
+
+        bot.drive.toVector(2000, 0);
 
         stop();
     }

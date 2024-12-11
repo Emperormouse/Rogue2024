@@ -34,11 +34,13 @@ public class Drive {
         frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-
-        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        
+         
 
 
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -46,28 +48,28 @@ public class Drive {
     }
 
     private void frontLeftPower(double power) {
-        frontLeft.setPower((power == 0) ? 0 : Math.max(power, 0.3));
+        frontLeft.setPower(power);
     }
     private void backLeftPower(double power) {
-        backLeft.setPower((power == 0) ? 0 : Math.max(power, 0.3) * 1.2);
+        backLeft.setPower(power);
     }
     private void frontRightPower(double power) {
-        frontRight.setPower((power == 0) ? 0 : -Math.max(power, 0.3));
+        frontRight.setPower(-power);
     }
     private void backRightPower(double power) {
-        backRight.setPower((power == 0) ? 0 : Math.max(power, 0.3) * 1.2);
+        backRight.setPower(power);
     }
 
     public void toVector(int targetX, int targetY) {
-        int currentX = (backRight.getCurrentPosition() - frontRight.getCurrentPosition() - backLeft.getCurrentPosition() + frontLeft.getCurrentPosition())/4;
-        int currentY = (backRight.getCurrentPosition() + frontRight.getCurrentPosition() + backLeft.getCurrentPosition() + frontLeft.getCurrentPosition())/4;
+        int currentX = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition())/2;
+        int currentY = (frontLeft.getCurrentPosition() + frontRight.getCurrentPosition())/2;
         int startX = currentX;
         int startY = currentY;
         int distanceTraveledX = 0;
         int distanceTraveledY = 0;
         while(Math.abs(distanceTraveledX) < Math.abs(targetX) || Math.abs(distanceTraveledY) < Math.abs(targetY)) {
-            currentX = (backRight.getCurrentPosition() - frontRight.getCurrentPosition() - backLeft.getCurrentPosition() + frontLeft.getCurrentPosition())/4;
-            currentY = (backRight.getCurrentPosition() + frontRight.getCurrentPosition() + backLeft.getCurrentPosition() + frontLeft.getCurrentPosition())/4;
+            currentX = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition())/2;
+            currentY = (frontLeft.getCurrentPosition() + frontRight.getCurrentPosition())/2;
 
             distanceTraveledX = currentX - startX;
             distanceTraveledY = currentY - startY;
@@ -77,11 +79,11 @@ public class Drive {
             double errorY = (targetY - currentY) * .005;
 
 
-            /*
-            double errorX = targetX;
-            double errorY = targetY;
 
-             */
+            errorX = targetX;
+            errorY = targetY;
+
+
 
             double denominator = Math.max(1, 1.25 * (Math.abs(errorX) + Math.abs(errorY)));
             frontLeftPower((errorY + errorX)/denominator);
@@ -99,6 +101,7 @@ public class Drive {
     }
 
     public void addDriveData() {
+        /*
         telemetry.addData("Front Left: ", frontLeft.getCurrentPosition());
         telemetry.addData("Back Left: ", backLeft.getCurrentPosition());
         telemetry.addData("Front Right: ", frontRight.getCurrentPosition());
@@ -107,5 +110,7 @@ public class Drive {
         telemetry.addData("Average Right: ", (backRight.getCurrentPosition() + frontRight.getCurrentPosition())/2);
         telemetry.addData("Average Foreword: ", (backRight.getCurrentPosition() + frontRight.getCurrentPosition() + backLeft.getCurrentPosition() + frontLeft.getCurrentPosition())/4);
         telemetry.addData("Average Sideways: ", (backRight.getCurrentPosition() - frontRight.getCurrentPosition() - backLeft.getCurrentPosition() + frontLeft.getCurrentPosition())/4);
+        */
     }
+
 }
