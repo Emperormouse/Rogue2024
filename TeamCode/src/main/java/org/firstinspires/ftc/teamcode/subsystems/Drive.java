@@ -75,21 +75,45 @@ public class Drive {
             distanceTraveledY = currentY - startY;
 
 
-            double errorX = (targetX - currentX) * .005;
+            double errorX = (targetX - currentX) * .005; //PID - disabled
             double errorY = (targetY - currentY) * .005;
-
-
 
             errorX = targetX;
             errorY = targetY;
-
-
 
             double denominator = Math.max(1, 1.25 * (Math.abs(errorX) + Math.abs(errorY)));
             frontLeftPower((errorY + errorX)/denominator);
             backLeftPower((errorY - errorX)/denominator);
             frontRightPower((errorY - errorX)/denominator);
             backRightPower((errorY + errorX)/denominator);
+
+            addDriveData();
+            telemetry.update();
+        }
+        frontLeftPower(0);
+        backLeftPower(0);
+        frontRightPower(0);
+        backRightPower(0);
+    }
+
+    public void turn(int targetTicks) {
+        int currentTicks = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition())/2;
+        int startTicks = currentTicks;
+        int distanceTraveled = 0;
+        while(Math.abs(distanceTraveled) < Math.abs(targetTicks)) {
+            currentTicks = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition())/2;
+
+            distanceTraveled = currentTicks - startTicks;
+
+            double error = (targetTicks - currentTicks) * .005; //PID - disabled
+
+            error = targetTicks;
+
+            double denominator = Math.max(1, 1.25 * (Math.abs(error)));
+            frontLeftPower(error/denominator);
+            backLeftPower(error/denominator);
+            frontRightPower(error/denominator);
+            backRightPower(error/denominator);
 
             addDriveData();
             telemetry.update();

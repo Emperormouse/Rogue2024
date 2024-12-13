@@ -24,12 +24,14 @@ public class TestRight extends LinearOpMode{
 
         while(!gamepad1.b) {
             if (gamepad1.dpad_up)
-                distance+=10;
+                distance+=50;
             else if (gamepad1.dpad_down)
-                distance-=10;
-            waitSeconds(0.25);
+                distance-=50;
+            else if (gamepad1.y)
+                distance *= -1;
             telemetry.addData("Distance: ", distance);
             telemetry.update();
+            while(gamepad1.dpad_up || gamepad1.dpad_down || gamepad1.y); //wait until they stop pressing a button
         }
 
         drive.toVector(distance, 0);

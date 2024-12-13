@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 
-@Autonomous(name = "testUp")
-public class TestUp extends LinearOpMode{
+@Autonomous(name = "testTurn")
+public class TestTurn extends LinearOpMode{
     public void waitSeconds(double seconds) {
         long startTime = System.currentTimeMillis();
         while(true)
@@ -34,7 +34,7 @@ public class TestUp extends LinearOpMode{
             while(gamepad1.dpad_up || gamepad1.dpad_down || gamepad1.y); //wait until they stop pressing a button
         }
 
-        drive.toVector(0, distance);
+        drive.turn(distance);
 
 
         stop();

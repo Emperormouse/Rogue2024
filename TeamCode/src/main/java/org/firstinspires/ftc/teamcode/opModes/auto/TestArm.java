@@ -18,7 +18,7 @@ public class TestArm extends LinearOpMode {
 
         while(opModeIsActive()) {
             telemetry.addData("arm: ", bot.arm.setPosition(800));
-            telemetry.addData("slides: ", bot.slides.setPosition(500));
+            telemetry.addData("slides: ", bot.slides.setPosition(500, 1.0));
             telemetry.update();
         }
     }

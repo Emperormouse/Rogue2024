@@ -19,7 +19,7 @@ public class Test1 extends LinearOpMode{
         Robot bot = new Robot(hardwareMap, telemetry);
         //Drive drive = new Drive(hardwareMap, telemetry);
         while(!isStarted()) {
-            bot.arm.setPosition(1000);
+            bot.arm.setPosition(1100);
         }
 
         bot.drive.toVector(0, 600);
@@ -28,23 +28,23 @@ public class Test1 extends LinearOpMode{
 
         long startTime = System.currentTimeMillis();
         while(System.currentTimeMillis() - startTime < 2 * 1000) {
-            bot.arm.setPosition(800);
-            bot.slides.setPosition(600);
+            bot.arm.setPosition(900);
+            bot.slides.setPosition(850, 0.3);
         }    
+        /*startTime = System.currentTimeMillis();
+        while(System.currentTimeMillis() - startTime < 2 * 1000) {
+            bot.arm.setPosition(1000);
+            bot.slides.setPosition(700, 0.5);
+        }*/
         startTime = System.currentTimeMillis();
         while(System.currentTimeMillis() - startTime < 2 * 1000) {
-            bot.arm.setPosition(700);
-            bot.slides.setPosition(600);
-        }
-        startTime = System.currentTimeMillis();
-        while(System.currentTimeMillis() - startTime < 2 * 1000) {
-            bot.arm.setPosition(700);
-            bot.slides.setPosition(0);
+            bot.arm.setPosition(850);
+            bot.slides.setPosition(0, 0.3);
         }
 
         bot.drive.toVector(0, -500);
 
-        while(bot.arm.setPosition(0) || bot.slides.setPosition(0));
+        while(bot.arm.setPosition(0) || bot.slides.setPosition(0, 0.5));
 
         waitSeconds(1);
 

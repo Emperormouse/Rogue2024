@@ -41,6 +41,8 @@ public class MainTeleOp extends LinearOpMode {
 
         if (isStopRequested()) return;
 
+        int targetArmTicks = arm.getPos();
+        boolean previousAButton = false;
 
         while (opModeIsActive()) {
             double y = gamepad1.left_stick_y;
@@ -61,18 +63,24 @@ public class MainTeleOp extends LinearOpMode {
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
 
+            /*if (gamepad2.left_stick_y != 0) {
+                arm.setPower(gamepad2.left_stick_y);
+                targetArmTicks = arm.getPos();
+            } else {
+                arm.setPosition(targetArmTicks);
+            }*/
 
             if (gamepad2.left_stick_y < 0) { //Reversed direction, may or may not be more intuitive
                 arm.raise();
-                //targetArmTicks = arm.getPos();
+                targetArmTicks = arm.getPos();
             } else if (gamepad2.left_stick_y > 0) {
                 arm.lower();
-                //targetArmTicks = arm.getPos();
+                targetArmTicks = arm.getPos();
             } else {
-                arm.stop();
-                //arm.setPosition(targetArmTicks);
+                arm.setPosition(targetArmTicks);
             }
 
+            //slides.setPower(gamepad2.right_stick_y);
 
             if (gamepad2.right_stick_y > 0) {
                 slides.extend();
@@ -82,15 +90,26 @@ public class MainTeleOp extends LinearOpMode {
                 slides.stop();
             }
 
-            if (gamepad2.a || gamepad2.right_bumper) {
-                if (claw.isClosed()) //Toggle
-                    claw.open();
-                else
-                    claw.close();
+            if (gamepad2.a || gamepad2.dpad_down) {
+                claw.open();
+                telemetry.addData("Pressed", "yes");
+            } else if (gamepad2.b) {
+                claw.close();
+            } else {
+                claw.stop();
+                telemetry.addData("claw: ", claw.getPos());
             }
+
+            if (gamepad2.x && !previousAButton) {
+                claw.toggle();
+            }
+
+
+
 
             telemetry.addData("arm", arm.getPos());
             telemetry.addData("slides", slides.getPos());
+            telemetry.update();
 
 
         }

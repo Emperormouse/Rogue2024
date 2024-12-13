@@ -14,7 +14,7 @@ public class TestSlides extends LinearOpMode {
         waitForStart();
 
         while(opModeIsActive())
-            bot.slides.setPosition(1000);
+            bot.slides.setPosition(1000, 1.0);
     }
 
 }

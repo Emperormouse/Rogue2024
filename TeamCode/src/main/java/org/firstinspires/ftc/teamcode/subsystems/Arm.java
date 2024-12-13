@@ -26,13 +26,18 @@ public class Arm {
     }
 
     public void raise() {
-        arm1.setPower(-1.0);
-        arm2.setPower(1.0);
+        arm1.setPower(-0.5);
+        arm2.setPower(0.5);
     }
 
     public void lower() {
-        arm1.setPower(1.0);
-        arm2.setPower(-1.0);
+        arm1.setPower(0.5);
+        arm2.setPower(-0.5);
+    }
+
+    public void setPower(double power) {
+        arm1.setPower(power / 2);
+        arm2.setPower(power / 2);
     }
 
     public void stop() {
