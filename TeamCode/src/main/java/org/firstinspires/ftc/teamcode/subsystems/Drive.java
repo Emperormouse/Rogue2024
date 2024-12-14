@@ -81,7 +81,7 @@ public class Drive {
             errorX = targetX;
             errorY = targetY;
 
-            double denominator = Math.max(1, 1.25 * (Math.abs(errorX) + Math.abs(errorY)));
+            double denominator = Math.max(1, (Math.abs(errorX) + Math.abs(errorY)));
             frontLeftPower((errorY + errorX)/denominator);
             backLeftPower((errorY - errorX)/denominator);
             frontRightPower((errorY - errorX)/denominator);
@@ -112,8 +112,8 @@ public class Drive {
             double denominator = Math.max(1, 1.25 * (Math.abs(error)));
             frontLeftPower(error/denominator);
             backLeftPower(error/denominator);
-            frontRightPower(error/denominator);
-            backRightPower(error/denominator);
+            frontRightPower(-error/denominator);
+            backRightPower(-error/denominator);
 
             addDriveData();
             telemetry.update();

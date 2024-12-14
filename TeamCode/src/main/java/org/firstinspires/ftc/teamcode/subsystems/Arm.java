@@ -36,7 +36,7 @@ public class Arm {
     }
 
     public void setPower(double power) {
-        arm1.setPower(power / 2);
+        arm1.setPower(-power / 2);
         arm2.setPower(power / 2);
     }
 

@@ -11,8 +11,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Slides;
 
-@TeleOp
-public class MainTeleOp extends LinearOpMode {
+@TeleOp(name = "TeleOpWithInit")
+public class TeleOpWithInit extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         DcMotor frontLeftMotor = (DcMotorEx) hardwareMap.dcMotor.get("leftFront");
@@ -37,7 +37,9 @@ public class MainTeleOp extends LinearOpMode {
         frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE); */
 
-        waitForStart();
+        while(!isStarted()) {
+            arm.setPosition(-500);
+        }
 
         if (isStopRequested()) return;
 

@@ -16,7 +16,7 @@ public class Claw {
 
     public Claw(HardwareMap hardwareMap) {
         claw = hardwareMap.servo.get("claw");
-        claw.setPosition(0.5);
+        claw.setPosition(CLOSED);
     }
 
     //Manual below here

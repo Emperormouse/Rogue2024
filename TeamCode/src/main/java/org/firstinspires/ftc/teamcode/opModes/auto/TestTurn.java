@@ -24,14 +24,15 @@ public class TestTurn extends LinearOpMode{
 
         while(!gamepad1.b) {
             if (gamepad1.dpad_up)
-                distance+=50;
+                distance+=5;
             else if (gamepad1.dpad_down)
-                distance-=50;
+                distance-=5;
             else if (gamepad1.y)
                 distance *= -1;
             telemetry.addData("Distance: ", distance);
             telemetry.update();
-            while(gamepad1.dpad_up || gamepad1.dpad_down || gamepad1.y); //wait until they stop pressing a button
+            waitSeconds(0.1);
+            //while(gamepad1.dpad_up || gamepad1.dpad_down || gamepad1.y); //wait until they stop pressing a button
         }
 
         drive.turn(distance);
