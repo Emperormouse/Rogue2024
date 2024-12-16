@@ -60,7 +60,7 @@ public class Drive {
         backRight.setPower(power);
     }
 
-    public void toVector(int targetX, int targetY) {
+    public void toVectorOld(int targetX, int targetY) {
         int currentX = (frontLeft.getCurrentPosition()/* - frontRight.getCurrentPosition())/2*/);
         int currentY = (frontLeft.getCurrentPosition()/* + frontRight.getCurrentPosition())/2*/);
         int startX = currentX;
@@ -94,6 +94,25 @@ public class Drive {
         backLeftPower(0);
         frontRightPower(0);
         backRightPower(0);
+    }
+
+    public boolean toVector(int targetX, int targetY) {
+        int currentX = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition())/2;
+        int currentY = (frontLeft.getCurrentPosition() + frontRight.getCurrentPosition())/2;
+
+        int errorX = targetX - currentX;
+        int errorY = targetY - currentY;
+
+        double powerX = (errorX * 0.005);
+        double powerY = (errorY * 0.005);
+
+        double denominator = Math.max(1, (Math.abs(powerX) + Math.abs(powerY)));
+        frontLeftPower((errorY + errorX)/denominator);
+        backLeftPower((errorY - errorX)/denominator);
+        frontRightPower((errorY - errorX)/denominator);
+        backRightPower((errorY + errorX)/denominator);
+
+        return (errorX < 10 && errorY < 10);
     }
 
     public void turn(int targetTicks) {
