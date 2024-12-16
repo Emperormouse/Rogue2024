@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Utility.Vector2D;
 
 public class Drive {
     public DcMotor frontLeft;
@@ -95,7 +96,6 @@ public class Drive {
         frontRightPower(0);
         backRightPower(0);
     }
-
     public boolean toVector(int targetX, int targetY) {
         int currentX = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition())/2;
         int currentY = (frontLeft.getCurrentPosition() + frontRight.getCurrentPosition())/2;
@@ -114,7 +114,6 @@ public class Drive {
 
         return (errorX < 10 && errorY < 10);
     }
-
     public void turn(int targetTicks) {
         int currentTicks = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition())/2;
         int startTicks = currentTicks;

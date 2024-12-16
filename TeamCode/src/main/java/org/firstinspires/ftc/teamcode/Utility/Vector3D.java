@@ -1,26 +1,26 @@
 package org.firstinspires.ftc.teamcode.Utility;
 
-public class Vector3D<T> extends Vector2D<T> {
-    private T x;
-    private T y;
-    private T z;
+public class Vector3D extends Vector2D {
+    private int x;
+    private int y;
+    private int z;
 
-    public Vector3D(T x, T y, T z) {
+    public Vector3D(int x, int y, int z) {
         super(x, y);
         this.z = z;
 
     }
 
     //Accessors
-    public T getZ() {
+    public int getZ() {
         return z;
     }
 
     //Mutators
-    public void setZ(T z) {
+    public void setZ(int z) {
         this.z = z;
     }
-    public void set(T x, T y, T z) {
+    public void set(int x, int y, int z) {
         super.set(x,y);
         this.z = z;
 

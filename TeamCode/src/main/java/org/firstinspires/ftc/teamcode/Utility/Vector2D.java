@@ -1,29 +1,34 @@
 package org.firstinspires.ftc.teamcode.Utility;
 
-public class Vector2D<T> {
-    private T x, y;
+public class Vector2D {
+    private int x, y;
 
-    public Vector2D(T x, T y) {
+    public Vector2D(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
+    public Vector2D() {
+        this.x = 0;
+        this.y = 0;
+    }
+
     //Accessors
-    public T getX() {
+    public int getX() {
         return x;
     }
-    public T getY() {
+    public int getY() {
         return y;
     }
 
     //Mutators
-    public void setX(T x) {
+    public void setX(int x) {
         this.x = x;
     }
-    public void setY(T y) {
+    public void setY(int y) {
         this.y = y;
     }
-    public void set(T x, T y) {
+    public void set(int x, int y) {
         this.x = x;
         this.y = y;
     }

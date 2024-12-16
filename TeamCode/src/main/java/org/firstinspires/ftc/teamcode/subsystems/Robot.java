@@ -6,6 +6,7 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Utility.Vector2D;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 
 public class Robot {
@@ -59,25 +60,32 @@ public class Robot {
         }
     }
 
-    public void setRobotPosition(int armPos, int slidesPos, double slideSpeed, int x, int y) {
+    /**
+     * @param drivePos Vector that holds the x and y of the drive position. Use: new Vector2D(x,y) to set a drive position
+     */
+    public void setRobotPosition(int armPos, int slidesPos, double slideSpeed, Vector2D drivePos) {
         this.armPos = armPos;
         this.slidesPos = slidesPos;
         boolean isAtArmPos = false;
         boolean isAtSlidesPos = false;
-
-        while( !(isAtArmPos || isAtSlidesPos) ) {
+        boolean isAtDrivePos = false;
+        while( !(isAtArmPos || isAtSlidesPos || isAtDrivePos) ) {
             isAtArmPos = arm.setPosition(armPos);
             isAtSlidesPos = slides.setPosition(slidesPos, slideSpeed);
+            isAtDrivePos = drive.toVector(drivePos.getX(), drivePos.getY());
+
         }
+
     }
 
-    public void DriveToPos(int x, int y) {
+    public void DriveToPos(Vector2D drivePos) {
         boolean isAtPos = false;
         while(!isAtPos) {
-            isAtPos = drive.toVector(x, y);
+            isAtPos = drive.toVector(drivePos.getX(), drivePos.getY());
             arm.setPosition(armPos);
             slides.setPosition(slidesPos, 0.5);
         }
 
     }
+
 }
