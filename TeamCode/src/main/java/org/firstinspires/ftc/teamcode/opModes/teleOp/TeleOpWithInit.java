@@ -38,7 +38,7 @@ public class TeleOpWithInit extends LinearOpMode {
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE); */
 
         while(!isStarted()) {
-            arm.setPosition(-500);
+            arm.setPosition(-750);
         }
 
         if (isStopRequested()) return;
@@ -102,6 +102,7 @@ public class TeleOpWithInit extends LinearOpMode {
             } else if (gamepad2.b) {
                 claw.close();
             }
+
 
             if ((gamepad2.x || gamepad2.right_bumper) && !previousXButton) {
                 claw.toggle();

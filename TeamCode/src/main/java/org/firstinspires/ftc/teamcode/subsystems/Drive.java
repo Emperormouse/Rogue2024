@@ -61,15 +61,15 @@ public class Drive {
     }
 
     public void toVector(int targetX, int targetY) {
-        int currentX = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition())/2;
-        int currentY = (frontLeft.getCurrentPosition() + frontRight.getCurrentPosition())/2;
+        int currentX = (frontLeft.getCurrentPosition()/* - frontRight.getCurrentPosition())/2*/);
+        int currentY = (frontLeft.getCurrentPosition()/* + frontRight.getCurrentPosition())/2*/);
         int startX = currentX;
         int startY = currentY;
         int distanceTraveledX = 0;
         int distanceTraveledY = 0;
         while(Math.abs(distanceTraveledX) < Math.abs(targetX) || Math.abs(distanceTraveledY) < Math.abs(targetY)) {
-            currentX = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition())/2;
-            currentY = (frontLeft.getCurrentPosition() + frontRight.getCurrentPosition())/2;
+            currentX = frontLeft.getCurrentPosition()/* - frontRight.getCurrentPosition())/2*/;
+            currentY = frontLeft.getCurrentPosition()/* + frontRight.getCurrentPosition())/2*/;
 
             distanceTraveledX = currentX - startX;
             distanceTraveledY = currentY - startY;

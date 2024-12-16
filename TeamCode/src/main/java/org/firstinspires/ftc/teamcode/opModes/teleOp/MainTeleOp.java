@@ -101,6 +101,7 @@ public class MainTeleOp extends LinearOpMode {
                 claw.close();
             }
 
+
             if ((gamepad2.x || gamepad2.right_bumper) && !previousXButton) {
                 claw.toggle();
             }

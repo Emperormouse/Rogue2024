@@ -19,7 +19,11 @@ public class Test1 extends LinearOpMode{
         Robot bot = new Robot(hardwareMap, telemetry);
         //Drive drive = new Drive(hardwareMap, telemetry);
         while(!isStarted()) {
-            bot.arm.setPosition(-700);
+            bot.arm.setPosition(-750);
+        }
+        long startTime = System.currentTimeMillis();
+        while(System.currentTimeMillis() - startTime < 1.5 * 1000) {
+            bot.arm.setPosition(-400);
         }
 
         bot.drive.toVector(0, 900);
@@ -27,39 +31,43 @@ public class Test1 extends LinearOpMode{
 
         waitSeconds(1);
 
-        long startTime = System.currentTimeMillis();
+        startTime = System.currentTimeMillis();
         while(System.currentTimeMillis() - startTime < 3 * 1000) {
-            bot.arm.setPosition(-220);
-            bot.slides.setPosition(1150, 0.5);
+            bot.arm.setPosition(-280);
+            bot.slides.setPosition(950, 0.5);
         }    
         /*startTime = System.currentTimeMillis();
         while(System.currentTimeMillis() - startTime < 2 * 1000) {
             bot.arm.setPosition(1000);
-            bot.slides.setPosition(700, 0.5);
+            bot.slides.setPosition(700, 0.5);]
         }*/
         startTime = System.currentTimeMillis();
         while(System.currentTimeMillis() - startTime < 1 * 1000) {
-            bot.arm.setPosition(-260);
-            bot.slides.setPosition(1150, 0.5);
+            bot.arm.setPosition(-340);
+            bot.slides.setPosition(950, 0.5);
         }
         startTime = System.currentTimeMillis();
         while(System.currentTimeMillis() - startTime < 2 * 1000) {
-            bot.arm.setPosition(-260);
-            bot.slides.setPosition(200, 0.5);
+            bot.arm.setPosition(-340);
+            bot.slides.setPosition(0, 0.5);
         }
         bot.claw.open();
         waitSeconds(1);
+
+
         startTime = System.currentTimeMillis();
         while(System.currentTimeMillis() - startTime < 2 * 1000) {
             bot.arm.setPosition(-380);
             bot.slides.setPosition(0, 0.5);
         }
 
+        waitSeconds(0.5);
+
         bot.drive.toVector(0, -500);
 
         while(bot.arm.setPosition(0) || bot.slides.setPosition(0, 0.5));
 
-        waitSeconds(1);
+        waitSeconds(0.5);
 
         bot.drive.toVector(2400, 0);
 

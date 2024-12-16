@@ -14,6 +14,10 @@ public class Robot {
     public Arm arm;
     public Claw claw;
     public Slides slides;
+
+    private int armPos = 0;
+    private int slidesPos = 0;
+
     Telemetry telemetry;
 
     public Robot(HardwareMap hardwareMap, Telemetry telemetry){
@@ -21,6 +25,15 @@ public class Robot {
         arm = new Arm(hardwareMap);
         claw = new Claw(hardwareMap);
         slides = new Slides(hardwareMap);
+    }
+
+    public void setArmPos(int pos) {
+        armPos = pos;
+        boolean notDone = true;
+        while(notDone) {
+            notDone = arm.setPosition(armPos);
+            slides.setPosition(slidesPos, 0.5);
+        }
     }
 
 
