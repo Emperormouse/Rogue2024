@@ -29,12 +29,55 @@ public class Robot {
 
     public void setArmPos(int pos) {
         armPos = pos;
-        boolean notDone = true;
-        while(notDone) {
-            notDone = arm.setPosition(armPos);
+        boolean isAtPos = false;
+        while(!isAtPos) {
+            isAtPos = arm.setPosition(armPos);
             slides.setPosition(slidesPos, 0.5);
         }
     }
 
+    //Sets slide's position
+    public void setSlidePos(int pos, double speed) {
+        slidesPos = pos;
+        boolean isAtPos = false;
+        while(!isAtPos) {
+            isAtPos = slides.setPosition(slidesPos, speed);
+            arm.setPosition(armPos);
+        }
+    }
 
+    //Sets the arm and slide positions at the same time
+    public void setRobotPosition(int armPos, int slidesPos, double slideSpeed) {
+        this.armPos = armPos;
+        this.slidesPos = slidesPos;
+        boolean isAtArmPos = false;
+        boolean isAtSlidesPos = false;
+
+        while( !(isAtArmPos || isAtSlidesPos) ) {
+            isAtArmPos = arm.setPosition(armPos);
+            isAtSlidesPos = slides.setPosition(slidesPos, slideSpeed);
+        }
+    }
+
+    public void setRobotPosition(int armPos, int slidesPos, double slideSpeed, int x, int y) {
+        this.armPos = armPos;
+        this.slidesPos = slidesPos;
+        boolean isAtArmPos = false;
+        boolean isAtSlidesPos = false;
+
+        while( !(isAtArmPos || isAtSlidesPos) ) {
+            isAtArmPos = arm.setPosition(armPos);
+            isAtSlidesPos = slides.setPosition(slidesPos, slideSpeed);
+        }
+    }
+
+    public void DriveToPos(int x, int y) {
+        boolean isAtPos = false;
+        while(!isAtPos) {
+            isAtPos = drive.toVector(x, y);
+            arm.setPosition(armPos);
+            slides.setPosition(slidesPos, 0.5);
+        }
+
+    }
 }

@@ -39,6 +39,9 @@ public class Slides {
 
     public int getPos() { return -motor.getCurrentPosition(); }
 
+    /**
+     * @return if the error is less than 10
+     */
     public boolean setPosition(int targetTicks, double speed) {
         final double p = 0.01;
 
@@ -49,7 +52,7 @@ public class Slides {
         else
             motor.setPower(speed * (-diff * p));
 
-        return Math.abs(diff) >= Math.abs(10);
+        return Math.abs(diff) < 10;
     }
 
     //Roadrunner

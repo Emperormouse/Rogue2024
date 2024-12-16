@@ -45,6 +45,12 @@ public class Arm {
         arm2.setPower(0.0);
     }
 
+    /**
+     *
+     * @param targetTicks self-explanatory
+     * @return returns true if the error between the arm's position and desired position is less
+     * than the desired amount
+     */
     public boolean setPosition(int targetTicks) {
         final double p = 0.003;
 
@@ -53,7 +59,7 @@ public class Arm {
         arm1.setPower(diff * p);
         arm2.setPower(-diff * p);
 
-        return Math.abs(diff) >= 10;
+        return Math.abs(diff) < 10;
     }
 
     public int getPos() {
