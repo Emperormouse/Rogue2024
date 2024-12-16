@@ -88,4 +88,12 @@ public class Robot {
 
     }
 
+    public void wait(double seconds) {
+        long startTime = System.currentTimeMillis();
+        while(System.currentTimeMillis() - startTime < (seconds * 1000)) {
+            arm.setPosition(armPos);
+            slides.setPosition(slidesPos, 0.5);
+        }
+    }
+
 }
