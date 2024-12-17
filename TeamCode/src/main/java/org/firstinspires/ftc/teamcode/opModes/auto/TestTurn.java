@@ -15,8 +15,8 @@ public class TestTurn extends LinearOpMode{
     }
 
     public void runOpMode() throws InterruptedException {
-        //Robot bot = new Robot(hardwareMap, telemetry);
-        Drive drive = new Drive(hardwareMap, telemetry);
+        Robot bot = new Robot(hardwareMap, telemetry);
+        //Drive drive = new Drive(hardwareMap, telemetry);
 
         waitForStart();
 
@@ -35,7 +35,7 @@ public class TestTurn extends LinearOpMode{
             //while(gamepad1.dpad_up || gamepad1.dpad_down || gamepad1.y); //wait until they stop pressing a button
         }
 
-        drive.turn(distance);
+        bot.drive.turn(distance);
 
 
         stop();

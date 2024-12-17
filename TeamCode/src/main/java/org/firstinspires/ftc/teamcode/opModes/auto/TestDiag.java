@@ -15,8 +15,7 @@ public class TestDiag extends LinearOpMode{
     }
 
     public void runOpMode() throws InterruptedException {
-        //Robot bot = new Robot(hardwareMap, telemetry);
-        Drive drive = new Drive(hardwareMap, telemetry);
+        Robot bot = new Robot(hardwareMap, telemetry);
 
         waitForStart();
 
@@ -47,7 +46,7 @@ public class TestDiag extends LinearOpMode{
         telemetry.addLine("X is configured");
         telemetry.update();
 
-        drive.toVectorOld(distanceX, distanceY);
+        bot.drive.toVectorOld(distanceX, distanceY);
 
         stop();
     }

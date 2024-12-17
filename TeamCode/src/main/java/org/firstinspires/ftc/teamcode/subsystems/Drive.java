@@ -13,12 +13,14 @@ public class Drive {
     public DcMotor backLeft;
     public DcMotor frontRight;
     public DcMotor backRight;
+    private Robot botReference;
 
     final double mod = 2.0;
     Telemetry telemetry;
 
-    public Drive(HardwareMap hardwareMap, Telemetry telementary) {
+    public Drive(HardwareMap hardwareMap, Telemetry telementary, Robot botReference) {
         this.telemetry = telementary;
+        this.botReference = botReference;
 
         frontLeft = (DcMotorEx) hardwareMap.dcMotor.get("leftFront");
         backLeft = (DcMotorEx) hardwareMap.dcMotor.get("leftBack");
@@ -88,6 +90,7 @@ public class Drive {
             frontRightPower((errorY - errorX)/denominator);
             backRightPower((errorY + errorX)/denominator);
 
+            botReference.holdPosition();
             addDriveData();
             telemetry.update();
         }

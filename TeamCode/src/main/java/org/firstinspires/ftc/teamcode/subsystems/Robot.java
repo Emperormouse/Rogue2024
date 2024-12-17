@@ -22,7 +22,7 @@ public class Robot {
     Telemetry telemetry;
 
     public Robot(HardwareMap hardwareMap, Telemetry telemetry){
-        drive = new Drive(hardwareMap, telemetry);
+        drive = new Drive(hardwareMap, telemetry, this);
         arm = new Arm(hardwareMap);
         claw = new Claw(hardwareMap);
         slides = new Slides(hardwareMap);
@@ -34,6 +34,16 @@ public class Robot {
         while(!isAtPos) {
             isAtPos = arm.setPosition(armPos);
             slides.setPosition(slidesPos, 0.5);
+        }
+    }
+
+    //Set's slide's position (0.5 default speed)
+    public void setSlidePos(int pos) {
+        slidesPos = pos;
+        boolean isAtPos = false;
+        while(!isAtPos) {
+            isAtPos = slides.setPosition(slidesPos, 0.5);
+            arm.setPosition(armPos);
         }
     }
 
@@ -88,7 +98,7 @@ public class Robot {
 
     }
 
-    public void wait(double seconds) {
+    public void waitSeconds(double seconds) {
         long startTime = System.currentTimeMillis();
         while(System.currentTimeMillis() - startTime < (seconds * 1000)) {
             arm.setPosition(armPos);

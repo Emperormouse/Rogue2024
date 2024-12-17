@@ -21,7 +21,7 @@ public class TestArm extends LinearOpMode {
 
         bot.slides.setPosition(1200, 0.2);
 
-        bot.wait(3);
+        bot.waitSeconds(1.0);
 
         bot.arm.setPosition(0);
 

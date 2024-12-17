@@ -15,8 +15,8 @@ public class TestUp extends LinearOpMode{
     }
 
     public void runOpMode() throws InterruptedException {
-        //Robot bot = new Robot(hardwareMap, telemetry);
-        Drive drive = new Drive(hardwareMap, telemetry);
+        Robot bot = new Robot(hardwareMap, telemetry);
+        //Drive drive = new Drive(hardwareMap, telemetry);
 
         waitForStart();
 
@@ -34,7 +34,7 @@ public class TestUp extends LinearOpMode{
             waitSeconds(0.1);
         }
 
-        drive.toVectorOld(0, distance);
+        bot.drive.toVectorOld(0, distance);
 
 
         stop();
