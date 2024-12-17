@@ -3,11 +3,10 @@ package org.firstinspires.ftc.teamcode.opModes.auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.subsystems.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 
 @Autonomous(name = "NewMethodsAuto")
-public class Test3 extends LinearOpMode{
+public class TestNewMethods extends LinearOpMode{
 
     public void runOpMode() throws InterruptedException {
         Robot bot = new Robot(hardwareMap, telemetry);

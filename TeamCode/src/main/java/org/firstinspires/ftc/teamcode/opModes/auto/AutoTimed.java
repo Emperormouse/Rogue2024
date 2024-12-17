@@ -22,7 +22,7 @@ public class AutoTimed extends LinearOpMode{
             bot.arm.setPosition(-700);
         }
 
-        bot.drive.toVector(0, 900);
+        bot.drive.toVectorOld(0, 900);
 
 
         waitSeconds(1);
@@ -51,7 +51,7 @@ public class AutoTimed extends LinearOpMode{
         bot.claw.open();
         waitSeconds(1);
 
-        bot.drive.toVector(0, -500);
+        bot.drive.toVectorOld(0, -500);
 
         bot.claw.close();
 
@@ -62,11 +62,11 @@ public class AutoTimed extends LinearOpMode{
 
         waitSeconds(1);
 
-        bot.drive.toVector(2400, 0);
+        bot.drive.toVectorOld(2400, 0);
 
         waitSeconds(1);
 
-        bot.drive.toVector(0, -250);
+        bot.drive.toVectorOld(0, -250);
 
 
         stop();
