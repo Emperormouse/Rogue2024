@@ -96,12 +96,12 @@ public class Drive {
         frontRightPower(0);
         backRightPower(0);
     }
-    public boolean toVector(int targetX, int targetY) {
+    public boolean toVector(Vector2D vector) {
         int currentX = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition())/2;
         int currentY = (frontLeft.getCurrentPosition() + frontRight.getCurrentPosition())/2;
 
-        int errorX = targetX - currentX;
-        int errorY = targetY - currentY;
+        int errorX = vector.getX() - currentX;
+        int errorY = vector.getY() - currentY;
 
         double powerX = (errorX * 0.005);
         double powerY = (errorY * 0.005);

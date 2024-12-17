@@ -72,7 +72,7 @@ public class Robot {
         while( !(isAtArmPos || isAtSlidesPos || isAtDrivePos) ) {
             isAtArmPos = arm.setPosition(armPos);
             isAtSlidesPos = slides.setPosition(slidesPos, slideSpeed);
-            isAtDrivePos = drive.toVector(drivePos.getX(), drivePos.getY());
+            isAtDrivePos = drive.toVector(drivePos);
 
         }
 
@@ -81,7 +81,7 @@ public class Robot {
     public void DriveToPos(Vector2D drivePos) {
         boolean isAtPos = false;
         while(!isAtPos) {
-            isAtPos = drive.toVector(drivePos.getX(), drivePos.getY());
+            isAtPos = drive.toVector(drivePos);
             arm.setPosition(armPos);
             slides.setPosition(slidesPos, 0.5);
         }
