@@ -96,4 +96,9 @@ public class Robot {
         }
     }
 
+    public void holdPosition() {
+        arm.setPosition(armPos);
+        slides.setPosition(slidesPos, 0.5);
+    }
+
 }

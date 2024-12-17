@@ -26,7 +26,7 @@ public class Test1 extends LinearOpMode{
             bot.arm.setPosition(-400);
         }
 
-        bot.drive.toVector(0, 900);
+        bot.drive.toVectorOld(0, 900);
 
 
         waitSeconds(1);
@@ -63,17 +63,17 @@ public class Test1 extends LinearOpMode{
 
         waitSeconds(0.5);
 
-        bot.drive.toVector(0, -500);
+        bot.drive.toVectorOld(0, -500);
 
         while(bot.arm.setPosition(0) || bot.slides.setPosition(0, 0.5));
 
         waitSeconds(0.5);
 
-        bot.drive.toVector(2400, 0);
+        bot.drive.toVectorOld(2400, 0);
 
         waitSeconds(1);
 
-        bot.drive.toVector(0, -250);
+        bot.drive.toVectorOld(0, -250);
 
 
         stop();

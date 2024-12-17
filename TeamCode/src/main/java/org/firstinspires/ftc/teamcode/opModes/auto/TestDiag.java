@@ -47,7 +47,7 @@ public class TestDiag extends LinearOpMode{
         telemetry.addLine("X is configured");
         telemetry.update();
 
-        drive.toVector(distanceX, distanceY);
+        drive.toVectorOld(distanceX, distanceY);
 
         stop();
     }

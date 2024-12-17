@@ -34,7 +34,7 @@ public class TestUp extends LinearOpMode{
             waitSeconds(0.1);
         }
 
-        drive.toVector(0, distance);
+        drive.toVectorOld(0, distance);
 
 
         stop();

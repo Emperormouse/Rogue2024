@@ -34,7 +34,7 @@ public class TestRight extends LinearOpMode{
             waitSeconds(0.1);
         }
 
-        drive.toVector(distance, 0);
+        drive.toVectorOld(distance, 0);
 
         stop();
     }

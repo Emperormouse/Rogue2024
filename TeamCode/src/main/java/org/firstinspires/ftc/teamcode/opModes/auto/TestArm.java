@@ -7,19 +7,26 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 
-@Autonomous(name = "Arm")
+@Autonomous(name = "TestArm")
 public class TestArm extends LinearOpMode {
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
         Robot bot = new Robot(hardwareMap, telemetry);
 
+        bot.setArmPos(-400);
         while(!isStarted()) {
-            bot.arm.setPosition(300);
+            bot.holdPosition();
         }
 
-        while(opModeIsActive()) {
-            telemetry.addData("arm: ", bot.arm.setPosition(800));
-            telemetry.addData("slides: ", bot.slides.setPosition(500, 1.0));
-            telemetry.update();
-        }
+        bot.slides.setPosition(1700, 0.5);
+
+        bot.slides.setPosition(1200, 0.2);
+
+        bot.wait(3);
+
+        bot.arm.setPosition(0);
+
+        bot.slides.setPosition(0, 0.8);
+
+
     }
 }
