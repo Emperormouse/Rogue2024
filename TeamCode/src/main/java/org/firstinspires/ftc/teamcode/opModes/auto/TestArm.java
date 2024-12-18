@@ -17,15 +17,15 @@ public class TestArm extends LinearOpMode {
             bot.holdPosition();
         }
 
-        bot.slides.setPosition(1700, 0.5);
+        bot.setSlidePos(1700, 0.5);
 
-        bot.slides.setPosition(1200, 0.2);
+        bot.setSlidePos(1200, 0.2);
 
         bot.waitSeconds(1.0);
 
-        bot.arm.setPosition(0);
+        bot.setArmPos(0);
 
-        bot.slides.setPosition(0, 0.8);
+        bot.setSlidePos(0, 0.8);
 
 
     }

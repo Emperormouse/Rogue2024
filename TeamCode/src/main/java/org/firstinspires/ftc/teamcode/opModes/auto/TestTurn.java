@@ -35,7 +35,7 @@ public class TestTurn extends LinearOpMode{
             //while(gamepad1.dpad_up || gamepad1.dpad_down || gamepad1.y); //wait until they stop pressing a button
         }
 
-        bot.drive.turn(distance);
+        bot.drive.turn(distance, 1);
 
 
         stop();

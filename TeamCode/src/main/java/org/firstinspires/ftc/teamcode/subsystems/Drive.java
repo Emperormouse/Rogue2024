@@ -117,7 +117,13 @@ public class Drive {
 
         return (errorX < 10 && errorY < 10);
     }
-    public void turn(int targetTicks) {
+
+    /**
+     *
+     * @param targetTicks - self explanatory
+     * @param speed - double ranging from 0 to 1
+     */
+    public void turn(int targetTicks, double speed) {
         int currentTicks = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition())/2;
         int startTicks = currentTicks;
         int distanceTraveled = 0;
@@ -131,10 +137,10 @@ public class Drive {
             error = targetTicks;
 
             double denominator = Math.max(1, 1.25 * (Math.abs(error)));
-            frontLeftPower(error/denominator);
-            backLeftPower(error/denominator);
-            frontRightPower(-error/denominator);
-            backRightPower(-error/denominator);
+            frontLeftPower(error/denominator * speed);
+            backLeftPower(error/denominator * speed);
+            frontRightPower(-error/denominator * speed);
+            backRightPower(-error/denominator * speed);
 
             addDriveData();
             telemetry.update();

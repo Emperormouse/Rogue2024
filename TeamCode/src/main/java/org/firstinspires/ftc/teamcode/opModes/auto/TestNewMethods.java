@@ -22,30 +22,67 @@ public class TestNewMethods extends LinearOpMode{
 
         bot.waitSeconds(1);
 
-        bot.setRobotPosition(-280, 950, 0.5);
+        bot.setRobotPosition(-280, 1000, 0.5);
 
-        bot.setArmPos(-340);
+        bot.setArmPos(-360);
 
         bot.setSlidePos(0, 0.5);
 
         bot.claw.open();
 
-        bot.waitSeconds(1);
+        bot.waitSeconds(0.6);
 
         bot.setArmPos(-380);
 
-        bot.waitSeconds(0.5);
 
-        bot.drive.toVectorOld(0, -500);
+
+        bot.waitSeconds(0.6);
+
+        bot.drive.toVectorOld(0, -400);
 
         bot.setArmPos(0);
 
-        bot.drive.toVectorOld(2400, 0);
+        bot.waitSeconds(0.6);
+
+        bot.drive.turn(200, 0.5);
+
+        bot.waitSeconds(0.6);
+
+        bot.drive.toVectorOld(0, 1200);
 
         bot.waitSeconds(0.5);
 
-        bot.drive.toVectorOld(0, -250);
+        bot.drive.turn(200, 0.5);
 
+        bot.waitSeconds(0.2);
+
+        bot.setRobotPosition(-890,1900,0.5);
+
+        bot.waitSeconds(0.4);
+
+        bot.claw.close();
+
+        bot.waitSeconds(0.5);
+
+        bot.setArmPos(-750);
+
+        bot.setSlidePos(0,0.8);
+
+        bot.waitSeconds(0.5);
+
+        bot.drive.turn(350, 0.5);
+
+        bot.waitSeconds(0.5);
+
+        bot.drive.toVectorOld(0,1200);
+
+        bot.waitSeconds(0.5);
+
+        bot.drive.turn(350, 0.5);
+
+        bot.waitSeconds(0.5);
+
+        bot.drive.toVectorOld(0,500);
 
         stop();
     }
