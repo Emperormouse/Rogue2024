@@ -17,18 +17,23 @@ public class TestTurn extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
         Robot bot = new Robot(hardwareMap, telemetry);
         //Drive drive = new Drive(hardwareMap, telemetry);
-
+        int holdTime = 0;
         waitForStart();
 
         int distance = 1000;
 
         while(!gamepad1.b) {
-            if (gamepad1.dpad_up)
-                distance+=5;
-            else if (gamepad1.dpad_down)
-                distance-=5;
-            else if (gamepad1.y)
+            if (gamepad1.dpad_up) {
+                distance += 5 + 20 * (holdTime > 100 ? 1 : 0);
+                holdTime++;
+            } else if (gamepad1.dpad_down) {
+                distance -= 5 + 20 * (holdTime > 100 ? 1 : 0);
+                holdTime++;
+            } else if (gamepad1.y) {
+                holdTime = 0;
                 distance *= -1;
+            }
+            else holdTime = 0;
             telemetry.addData("Distance: ", distance);
             telemetry.update();
             waitSeconds(0.1);
