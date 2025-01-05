@@ -3,11 +3,10 @@ package org.firstinspires.ftc.teamcode.opModes.auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.subsystems.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 
 @Autonomous(name = "MainAuto")
-public class Test1 extends LinearOpMode{
+public class MainAuto extends LinearOpMode{
     public void waitSeconds(double seconds) {
         long startTime = System.currentTimeMillis();
         while(true)

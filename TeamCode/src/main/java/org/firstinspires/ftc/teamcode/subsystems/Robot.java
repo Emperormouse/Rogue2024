@@ -1,13 +1,9 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.ParallelAction;
-import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.SequentialAction;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Utility.Pos2D;
 import org.firstinspires.ftc.teamcode.Utility.Vector2D;
-import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 
 public class Robot {
 
@@ -18,6 +14,8 @@ public class Robot {
 
     private int armPos = 0;
     private int slidesPos = 0;
+
+    private Pos2D drivePos = new Pos2D(0, 0, 0);
 
     Telemetry telemetry;
 
@@ -71,31 +69,33 @@ public class Robot {
     }
 
     /**
-     * @param drivePos Vector that holds the x and y of the drive position. Use: new Vector2D(x,y) to set a drive position
+     * @param diffPos Vector that holds the x and y of the drive position. Use: new Vector2D(x,y) to set a drive position
      */
-    public void setRobotPosition(int armPos, int slidesPos, double slideSpeed, Vector2D drivePos) {
+    //won't work until we get more encoders
+    public void setRobotPosition(int armPos, int slidesPos, double slideSpeed, Pos2D diffPos) {
         this.armPos = armPos;
         this.slidesPos = slidesPos;
+        this.drivePos = drivePos.add(diffPos);
         boolean isAtArmPos = false;
         boolean isAtSlidesPos = false;
         boolean isAtDrivePos = false;
         while( !(isAtArmPos && isAtSlidesPos && isAtDrivePos) ) {
             isAtArmPos = arm.setPosition(armPos);
             isAtSlidesPos = slides.setPosition(slidesPos, slideSpeed);
-            isAtDrivePos = drive.toVector(drivePos);
+            isAtDrivePos = drive.toPosition(drivePos); //won't work until we get more encoders
 
         }
 
     }
 
-    public void DriveToPos(Vector2D drivePos) {
+    public void driveToPos(Pos2D diffPos) {
+        drivePos = drivePos.add(diffPos);
         boolean isAtPos = false;
         while(!isAtPos) {
-            isAtPos = drive.toVector(drivePos);
+            isAtPos = drive.toPosition(drivePos);
             arm.setPosition(armPos);
             slides.setPosition(slidesPos, 0.5);
         }
-
     }
 
     public void waitSeconds(double seconds) {
@@ -103,12 +103,14 @@ public class Robot {
         while(System.currentTimeMillis() - startTime < (seconds * 1000)) {
             arm.setPosition(armPos);
             slides.setPosition(slidesPos, 0.5);
+            drive.toPosition(drivePos);
         }
     }
 
     public void holdPosition() {
         arm.setPosition(armPos);
         slides.setPosition(slidesPos, 0.5);
+        drive.toPosition(drivePos);
     }
 
 }

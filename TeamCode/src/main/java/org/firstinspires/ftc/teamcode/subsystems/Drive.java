@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Utility.Pos2D;
 import org.firstinspires.ftc.teamcode.Utility.Vector2D;
 
 public class Drive {
@@ -99,23 +100,27 @@ public class Drive {
         frontRightPower(0);
         backRightPower(0);
     }
-    public boolean toVector(Vector2D vector) {
-        int currentX = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition())/2;
-        int currentY = (frontLeft.getCurrentPosition() + frontRight.getCurrentPosition())/2;
+    public boolean toPosition(Pos2D targetPos) {
+        Pos2D currentPos = new Pos2D(
+            (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition() - backLeft.getCurrentPosition() + backRight.getCurrentPosition()), // X
+            (frontLeft.getCurrentPosition() + frontRight.getCurrentPosition() + backLeft.getCurrentPosition() + backRight.getCurrentPosition()), // Y
+            (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition() + backLeft.getCurrentPosition() - backRight.getCurrentPosition()) // R
+        );
 
-        int errorX = vector.getX() - currentX;
-        int errorY = vector.getY() - currentY;
+        Pos2D errorPos = targetPos.subtract(currentPos);
 
-        double powerX = (errorX * 0.005);
-        double powerY = (errorY * 0.005);
+        double p = 0.002;
+        double powerX = (errorPos.getX() * p);
+        double powerY = (errorPos.getY() * p);
+        double powerR = (errorPos.getR() * p);
 
-        double denominator = Math.max(1, (Math.abs(powerX) + Math.abs(powerY)));
-        frontLeftPower((errorY + errorX)/denominator);
-        backLeftPower((errorY - errorX)/denominator);
-        frontRightPower((errorY - errorX)/denominator);
-        backRightPower((errorY + errorX)/denominator);
+        double denominator = Math.max(1, Math.abs(powerX) + Math.abs(powerY) + Math.abs(powerR) );
+        frontLeftPower((powerY + powerX + powerR)/denominator);
+        backLeftPower((powerY - powerX + powerR)/denominator);
+        frontRightPower((powerY - powerX - powerR)/denominator);
+        backRightPower((powerY + powerX - powerR)/denominator);
 
-        return (errorX < 10 && errorY < 10);
+        return (errorPos.getX() < 50 && errorPos.getY() < 50 && errorPos.getR() < 50);
     }
 
     /**
@@ -136,11 +141,11 @@ public class Drive {
 
             error = targetTicks;
 
-            double denominator = Math.max(1, 1.25 * (Math.abs(error)));
-            frontLeftPower(error/denominator * speed);
-            backLeftPower(error/denominator * speed);
-            frontRightPower(-error/denominator * speed);
-            backRightPower(-error/denominator * speed);
+            double denominator = Math.max(1, (Math.abs(error))/speed);
+            frontLeftPower(error/denominator);
+            backLeftPower(error/denominator);
+            frontRightPower(-error/denominator);
+            backRightPower(-error/denominator);
 
             addDriveData();
             telemetry.update();

@@ -32,6 +32,11 @@ public class Vector2D {
         this.x = x;
         this.y = y;
     }
+
+    public void add(Vector2D other) {
+        this.x += other.getX();
+        this.y += other.getY();
+    }
 }
 
 
