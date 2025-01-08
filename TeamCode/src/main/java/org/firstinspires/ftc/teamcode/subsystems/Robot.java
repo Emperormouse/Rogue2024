@@ -15,7 +15,7 @@ public class Robot {
     private int armPos = 0;
     private int slidesPos = 0;
 
-    private Pos2D drivePos = new Pos2D(0, 0, 0);
+    private Pos2D drivePos;
 
     Telemetry telemetry;
 
@@ -24,6 +24,8 @@ public class Robot {
         arm = new Arm(hardwareMap);
         claw = new Claw(hardwareMap);
         slides = new Slides(hardwareMap);
+        drivePos = new Pos2D(0, 0, 0);
+        this.telemetry = telemetry;
     }
 
     public void setArmPos(int pos) {
@@ -95,7 +97,24 @@ public class Robot {
             isAtPos = drive.toPosition(drivePos);
             arm.setPosition(armPos);
             slides.setPosition(slidesPos, 0.5);
+            /*
+            drive.addDriveData();
+            telemetry.update();*/
         }
+        drive.turnOff();
+    }
+
+    public void turnTo(int ticks) {
+        boolean isAtPos = false;
+        while(!isAtPos) {
+            isAtPos = drive.turnTo(ticks);
+            arm.setPosition(armPos);
+            slides.setPosition(slidesPos, 0.5);
+            /*
+            drive.addDriveData();
+            telemetry.update();*/
+        }
+        drive.turnOff();
     }
 
     public void waitSeconds(double seconds) {
@@ -103,14 +122,17 @@ public class Robot {
         while(System.currentTimeMillis() - startTime < (seconds * 1000)) {
             arm.setPosition(armPos);
             slides.setPosition(slidesPos, 0.5);
-            drive.toPosition(drivePos);
+            drive.addDriveData();
+            telemetry.update();
+            //drive.toPosition(drivePos);
         }
     }
 
     public void holdPosition() {
         arm.setPosition(armPos);
         slides.setPosition(slidesPos, 0.5);
-        drive.toPosition(drivePos);
+        //drive.toPosition(drivePos);
     }
+
 
 }

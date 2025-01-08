@@ -36,6 +36,8 @@ public class TestUp extends LinearOpMode{
 
         bot.drive.toVectorOld(0, distance);
 
+        bot.waitSeconds(1.0);
+
 
         stop();
     }

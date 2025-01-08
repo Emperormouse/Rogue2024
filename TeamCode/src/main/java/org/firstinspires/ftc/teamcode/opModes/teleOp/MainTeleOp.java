@@ -20,6 +20,12 @@ public class MainTeleOp extends LinearOpMode {
         DcMotor frontRightMotor = (DcMotorEx) hardwareMap.dcMotor.get("rightFront");
         DcMotor backRightMotor = (DcMotorEx) hardwareMap.dcMotor.get("rightBack");
 
+        frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
+        frontRightMotor.setPower(0);
+        frontLeftMotor.setPower(0);
+
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
@@ -112,6 +118,9 @@ public class MainTeleOp extends LinearOpMode {
 
             telemetry.addData("arm", arm.getPos());
             telemetry.addData("slides", slides.getPos());
+            telemetry.addData("Left: ", frontLeftMotor.getCurrentPosition());
+            telemetry.addData("Right: ", frontRightMotor.getCurrentPosition());
+
             telemetry.update();
 
 

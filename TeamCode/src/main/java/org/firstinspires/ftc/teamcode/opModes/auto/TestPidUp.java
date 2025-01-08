@@ -15,12 +15,20 @@ public class TestPidUp extends LinearOpMode {
         waitForStart();
 
         bot.driveToPos(new Pos2D(0, 2000, 0));
-
-        bot.waitSeconds(2.0);
+        bot.waitSeconds(1.0);
 
         bot.driveToPos(new Pos2D(0, -2000, 0));
 
-        bot.waitSeconds(5.0);
+        bot.waitSeconds(1.0);
+
+        bot.driveToPos(new Pos2D(0, 1000, 0));
+
+        bot.waitSeconds(1.0);
+
+        bot.turnTo(2000);
+        bot.waitSeconds(1.0);
+        bot.turnTo(0);
+        bot.waitSeconds(1.0);
 
         stop();
     }

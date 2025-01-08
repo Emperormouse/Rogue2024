@@ -18,15 +18,11 @@ public class TestNewMethods extends LinearOpMode{
 
         bot.setArmPos(-400);
 
-        bot.drive.toVectorOld(0, 1100);
+        bot.drive.toVectorOld(0, 900);
 
         bot.waitSeconds(1);
 
-        bot.drive.toVectorOld(0, -100);
-
-        bot.waitSeconds(1);
-
-        bot.setRobotPosition(-370, 1800, 0.5);
+        bot.setRobotPosition(-370, 1600, 0.5);
 
         bot.setArmPos(-440);
 

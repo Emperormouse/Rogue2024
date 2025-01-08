@@ -36,6 +36,9 @@ public class TestRight extends LinearOpMode{
 
         bot.drive.toVectorOld(distance, 0);
 
+        bot.waitSeconds(1.0);
+
+
         stop();
     }
 }
