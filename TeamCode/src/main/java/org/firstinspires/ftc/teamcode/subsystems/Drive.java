@@ -100,6 +100,34 @@ public class Drive {
         frontRightPower(0);
         backRightPower(0);
     }
+
+    public void strafe(int target, double speed) {
+        int current = (frontLeft.getCurrentPosition());
+        int start = current;
+        int distanceTraveled = 0;
+        while(Math.abs(distanceTraveled) < Math.abs(target)) {
+            current = frontLeft.getCurrentPosition()/* - frontRight.getCurrentPosition())/2*/;
+            distanceTraveled = current - start;
+
+            //double error = (target - current) * .005; //PID - disabled
+            //error = target;
+
+            double denominator = (Math.abs(target)/speed);
+            frontLeftPower(target/denominator);
+            backLeftPower(-target/denominator);
+            frontRightPower(-target/denominator);
+            backRightPower(target/denominator);
+
+            botReference.holdPosition();
+            addDriveData();
+            telemetry.update();
+        }
+        frontLeftPower(0);
+        backLeftPower(0);
+        frontRightPower(0);
+        backRightPower(0);
+    }
+
     public boolean toPosition(Pos2D targetPos) {
         Pos2D currentPos = new Pos2D(
             //(frontLeft.getCurrentPosition() - frontRight.getCurrentPosition() - backLeft.getCurrentPosition() + backRight.getCurrentPosition()), // X

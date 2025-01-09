@@ -34,7 +34,7 @@ public class TestRight extends LinearOpMode{
             waitSeconds(0.1);
         }
 
-        bot.drive.toVectorOld(distance, 0);
+        bot.drive.strafe(distance, 1.0);
 
         bot.waitSeconds(1.0);
 

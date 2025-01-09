@@ -42,6 +42,7 @@ public class TestTurn extends LinearOpMode{
 
         bot.drive.turn(distance, 1);
 
+        bot.waitSeconds(1.0);
 
         stop();
     }
