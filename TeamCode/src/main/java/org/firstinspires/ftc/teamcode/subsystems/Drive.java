@@ -65,8 +65,8 @@ public class Drive {
     }
 
     public void toVectorOld(int targetX, int targetY) {
-        int currentX = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition())/2;
-        int currentY = (frontLeft.getCurrentPosition() + frontRight.getCurrentPosition())/2;
+        int currentX = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition());
+        int currentY = (frontLeft.getCurrentPosition() + frontRight.getCurrentPosition());
         int startX = currentX;
         int startY = currentY;
         int distanceTraveledX = 0;
@@ -90,6 +90,46 @@ public class Drive {
             backLeftPower((errorY - errorX)/denominator);
             frontRightPower((errorY - errorX)/denominator);
             backRightPower((errorY + errorX)/denominator);
+
+            botReference.holdPosition();
+            addDriveData();
+            telemetry.update();
+        }
+        frontLeftPower(0);
+        backLeftPower(0);
+        frontRightPower(0);
+        backRightPower(0);
+    }
+
+    /**
+     * @param speed - between 1.0 and 0.0
+     */
+    public void toVectorOld(int targetX, int targetY, double speed) {
+        int currentX = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition());
+        int currentY = (frontLeft.getCurrentPosition() + frontRight.getCurrentPosition());
+        int startX = currentX;
+        int startY = currentY;
+        int distanceTraveledX = 0;
+        int distanceTraveledY = 0;
+        while(Math.abs(distanceTraveledX) < Math.abs(targetX) || Math.abs(distanceTraveledY) < Math.abs(targetY)) {
+            currentX = frontLeft.getCurrentPosition()/* - frontRight.getCurrentPosition())/2*/;
+            currentY = frontLeft.getCurrentPosition()/* + frontRight.getCurrentPosition())/2*/;
+
+            distanceTraveledX = currentX - startX;
+            distanceTraveledY = currentY - startY;
+
+
+            double errorX = (targetX - currentX) * .005; //PID - disabled
+            double errorY = (targetY - currentY) * .005;
+
+            errorX = targetX;
+            errorY = targetY;
+
+            double denominator = Math.max(1, (Math.abs(errorX) + Math.abs(errorY)));
+            frontLeftPower((errorY + errorX)/denominator * speed);
+            backLeftPower((errorY - errorX)/denominator  * speed);
+            frontRightPower((errorY - errorX)/denominator  * speed);
+            backRightPower((errorY + errorX)/denominator  * speed);
 
             botReference.holdPosition();
             addDriveData();

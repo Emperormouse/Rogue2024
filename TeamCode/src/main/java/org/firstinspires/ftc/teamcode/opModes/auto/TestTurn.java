@@ -24,10 +24,10 @@ public class TestTurn extends LinearOpMode{
 
         while(!gamepad1.b) {
             if (gamepad1.dpad_up) {
-                distance += 5 + 20 * (holdTime > 100 ? 1 : 0);
+                distance += ((holdTime > 20 && distance % 50 == 0) ? 50 : 5);
                 holdTime++;
             } else if (gamepad1.dpad_down) {
-                distance -= 5 + 20 * (holdTime > 100 ? 1 : 0);
+                distance -= ((holdTime > 20 && distance % 50 == 0) ? 50 : 5);
                 holdTime++;
             } else if (gamepad1.y) {
                 holdTime = 0;

@@ -84,7 +84,7 @@ public class Robot {
         while( !(isAtArmPos && isAtSlidesPos && isAtDrivePos) ) {
             isAtArmPos = arm.setPosition(armPos);
             isAtSlidesPos = slides.setPosition(slidesPos, slideSpeed);
-            isAtDrivePos = drive.toPosition(drivePos); //won't work until we get more encoders
+            //isAtDrivePos = drive.toPosition(drivePos); //won't work until we get more encoders
 
         }
 

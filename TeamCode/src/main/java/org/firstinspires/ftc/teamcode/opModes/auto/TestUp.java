@@ -21,14 +21,21 @@ public class TestUp extends LinearOpMode{
         waitForStart();
 
         int distance = 1000;
+        int holdTime = 0;
 
         while(!gamepad1.b) {
-            if (gamepad1.dpad_up)
-                distance+=5;
-            else if (gamepad1.dpad_down)
-                distance-=5;
+            if (gamepad1.dpad_up) {
+                holdTime++;
+                distance += ((holdTime > 20  && distance % 50 == 0) ? 50 : 5);
+            }
+            else if (gamepad1.dpad_down) {
+                holdTime++;
+                distance -= ((holdTime > 20  && distance % 50 == 0) ? 50 : 5);
+            }
             else if (gamepad1.y)
                 distance *= -1;
+            else
+                holdTime = 0;
             telemetry.addData("Distance: ", distance);
             telemetry.update();
             waitSeconds(0.1);

@@ -17,13 +17,18 @@ public class MainAuto extends LinearOpMode{
         }
 
         //FIRST BLOCK
-            bot.setArmPos(-390);
+            bot.setArmPos(-410);
 
-            bot.drive.toVectorOld(0, 900);
+            bot.drive.toVectorOld(0, 900, 1.0);
+
 
             bot.waitSeconds(1);
 
-            bot.setRobotPosition(-370, 1600, 0.5);
+            bot.setArmPos(-380);
+
+            bot.setSlidePos(1600);
+
+            //bot.setRobotPosition(-360, 1500, 1);
 
             bot.setArmPos(-430);
 
@@ -51,12 +56,12 @@ public class MainAuto extends LinearOpMode{
             bot.waitSeconds(0.6);
 
             //Drive forward to sample area
-                bot.drive.toVectorOld(0, 1800);
+                bot.drive.toVectorOld(0, 1500);
 
             bot.waitSeconds(0.5);
 
             //Turn clockwise to human player
-            bot.drive.turn(220, 0.5);
+            bot.drive.turn(300, 0.5);
 
                 /*
             bot.drive.strafe(2800, 1.0);
@@ -67,7 +72,9 @@ public class MainAuto extends LinearOpMode{
 
             bot.waitSeconds(0.5);
 
-            bot.drive.toVectorOld(0, 500);
+            bot.drive.toVectorOld(0, 200);
+
+            bot.waitSeconds(0.5);
 
             //Set arm in position to add block
                 bot.setArmPos(-930);
@@ -75,7 +82,7 @@ public class MainAuto extends LinearOpMode{
             bot.waitSeconds(0.7);
 
             //Grab second block
-                bot.setSlidePos(1000, 0.5);
+                bot.setSlidePos(1500, 0.7);
 
                 bot.waitSeconds(1.0);
 
@@ -101,7 +108,7 @@ public class MainAuto extends LinearOpMode{
                 bot.waitSeconds(0.5);
 
                 //Drive forward to the bars
-                    bot.drive.toVectorOld(0,1800);
+                    bot.drive.toVectorOld(0,500);
 
                 bot.waitSeconds(0.5);
 
