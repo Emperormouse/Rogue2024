@@ -19,10 +19,13 @@ public class MainAuto extends LinearOpMode{
         //FIRST BLOCK
             bot.setArmPos(-410);
 
+            bot.drive.SetBrakes(false);
+
             bot.drive.toVectorOld(0, 900, 1.0);
 
-
             bot.waitSeconds(1);
+
+            bot.drive.SetBrakes(true);
 
             bot.setArmPos(-380);
 

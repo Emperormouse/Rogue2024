@@ -274,4 +274,20 @@ public class Drive {
 
     }
 
+    public void SetBrakes(boolean isOn) {
+        if(isOn)
+        {
+            frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        }
+        else {
+            frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        }
+    }
+
 }
