@@ -21,22 +21,22 @@ public class MainAuto extends LinearOpMode{
 
             bot.drive.SetBrakes(false);
 
-            bot.drive.toVectorOld(0, 900, 1.0);
+            bot.drive.toVectorOld(0, 850, 1.0);
 
             bot.waitSeconds(1);
 
             bot.drive.SetBrakes(true);
 
-            bot.setArmPos(-380);
+            bot.setArmPos(-300);
 
-            bot.setSlidePos(1600);
+            bot.setSlidePos(900, 1.0);
 
             //bot.setRobotPosition(-360, 1500, 1);
 
-            bot.setArmPos(-430);
+            bot.setArmPos(-350);
 
             //Pull down block
-            bot.setSlidePos(250, 0.5);
+            bot.setSlidePos(0, 1.0);
 
             bot.claw.open();
 
@@ -48,23 +48,23 @@ public class MainAuto extends LinearOpMode{
             bot.waitSeconds(0.6);
 
             //Drive backwards away from bar
-                bot.drive.toVectorOld(0, -400);
+            bot.drive.toVectorOld(0, -600);
 
             bot.waitSeconds(0.6);
 
 
             //Turn 90 deg clockwise
-                bot.drive.turn(220, 0.5);
+        bot.drive.turn(220, 1.0);
 
             bot.waitSeconds(0.6);
 
             //Drive forward to sample area
-                bot.drive.toVectorOld(0, 1500);
+                bot.drive.toVectorOld(0, 1800);
 
             bot.waitSeconds(0.5);
 
             //Turn clockwise to human player
-            bot.drive.turn(300, 0.5);
+            bot.drive.turn(270, 1.0);
 
                 /*
             bot.drive.strafe(2800, 1.0);
@@ -75,9 +75,9 @@ public class MainAuto extends LinearOpMode{
 
             bot.waitSeconds(0.5);
 
-            bot.drive.toVectorOld(0, 200);
+            //bot.drive.toVectorOld(0, 200);
 
-            bot.waitSeconds(0.5);
+            //bot.waitSeconds(0.5);
 
             //Set arm in position to add block
                 bot.setArmPos(-930);
@@ -85,7 +85,7 @@ public class MainAuto extends LinearOpMode{
             bot.waitSeconds(0.7);
 
             //Grab second block
-                bot.setSlidePos(1500, 0.7);
+                bot.setSlidePos(2100, 1.0);
 
                 bot.waitSeconds(1.0);
 
@@ -95,38 +95,66 @@ public class MainAuto extends LinearOpMode{
 
                 bot.setArmPos(-750);
 
-                bot.setSlidePos(0, 0.6);
+                bot.setSlidePos(0, 1.0);
 
                 bot.setArmPos(0);
             //Drive to score second sample
                 bot.waitSeconds(0.5);
 
-                bot.drive.toVectorOld(0, -50);
+                //bot.drive.toVectorOld(0, -50);
 
-                bot.waitSeconds(0.5);
+                //bot.waitSeconds(0.5);
 
                 //Turn right parallel to wall and sample hanging bars
-                    bot.drive.turn(220, 0.5);
+                    bot.drive.turn(270, 1.0);
 
                 bot.waitSeconds(0.5);
 
                 //Drive forward to the bars
-                    bot.drive.toVectorOld(0,500);
+                    bot.drive.toVectorOld(0,1600);
 
                 bot.waitSeconds(0.5);
 
                 //Turn right to face bars
-                    bot.drive.turn(220, 0.5);
+                    bot.drive.turn(270, 1.0);
 
                 bot.waitSeconds(0.5);
+
+                bot.drive.SetBrakes(false);
 
                 //Drive up to bars
-                    bot.drive.toVectorOld(0,800);
+                bot.drive.toVectorOld(0,700);
 
                 bot.waitSeconds(0.5);
 
+                bot.drive.SetBrakes(true);
 
-                bot.waitSeconds(1);
+                bot.setArmPos(-300);
+
+                bot.setSlidePos(900);
+
+                //bot.setRobotPosition(-360, 1500, 1);
+
+                bot.setArmPos(-350);
+
+                //Pull down block
+                bot.setSlidePos(0, 0.5);
+
+                bot.claw.open();
+
+                bot.waitSeconds(0.6);
+
+                //SECOND BLOCK
+                bot.setArmPos(-380);
+
+                bot.waitSeconds(0.6);
+
+                //Drive backwards away from bar
+                bot.drive.toVectorOld(0, -400);
+
+
+
+                /* bot.waitSeconds(1);
 
                 //Raise arm up to bar
                     bot.setRobotPosition(-370, 1600, 0.5);
@@ -145,7 +173,7 @@ public class MainAuto extends LinearOpMode{
             bot.waitSeconds(0.6);
 
             //PARKING
-                bot.drive.toVectorOld(0, -200);
+                bot.drive.toVectorOld(0, -200);*/
 
             stop();
     }
