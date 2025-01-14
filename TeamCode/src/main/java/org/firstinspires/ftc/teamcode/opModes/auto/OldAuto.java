@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 
-@Autonomous(name = "MainAuto")
+@Autonomous(name = "Old Old Old Auto")
 public class OldAuto extends LinearOpMode{
     public void waitSeconds(double seconds) {
         long startTime = System.currentTimeMillis();

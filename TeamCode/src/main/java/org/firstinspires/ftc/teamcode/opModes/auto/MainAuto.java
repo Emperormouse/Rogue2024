@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 
-@Autonomous(name = "NewMethodsAuto")
+@Autonomous(name = "MAIN AUTO >:(")
 public class MainAuto extends LinearOpMode{
 
     public void runOpMode() throws InterruptedException {
@@ -21,7 +21,7 @@ public class MainAuto extends LinearOpMode{
 
             bot.drive.SetBrakes(false);
 
-            bot.drive.toVectorOld(0, 850, 1.0);
+            bot.drive.toVectorOld(0, 750, 1);
 
             bot.waitSeconds(1);
 
@@ -33,10 +33,14 @@ public class MainAuto extends LinearOpMode{
 
             //bot.setRobotPosition(-360, 1500, 1);
 
-            bot.setArmPos(-350);
+            bot.setArmPos(-370);
+
+            bot.waitSeconds(0.3);
 
             //Pull down block
-            bot.setSlidePos(0, 1.0);
+            bot.setSlidePos(0, 0.5);
+
+            bot.drive.toVectorOld(0, -60, 0.5);
 
             bot.claw.open();
 
@@ -54,7 +58,7 @@ public class MainAuto extends LinearOpMode{
 
 
             //Turn 90 deg clockwise
-        bot.drive.turn(220, 1.0);
+        bot.drive.turn(190, 1.0);
 
             bot.waitSeconds(0.6);
 
@@ -64,7 +68,7 @@ public class MainAuto extends LinearOpMode{
             bot.waitSeconds(0.5);
 
             //Turn clockwise to human player
-            bot.drive.turn(270, 1.0);
+            bot.drive.turn(230, 1.0);
 
                 /*
             bot.drive.strafe(2800, 1.0);
