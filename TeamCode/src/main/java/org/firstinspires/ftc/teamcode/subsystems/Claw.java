@@ -9,17 +9,20 @@ import com.qualcomm.robotcore.hardware.*;
 public class Claw {
 
     private Servo claw;
+    private Servo hinge;
     private final double CLOSED = 0.6;
     private final double OPEN = 0.4;
-    private final double START = -1.0;
+
+    private final double STRAIGHT = 0.2;
+    private final double ANGLED = 1.0;
 
 
     public Claw(HardwareMap hardwareMap) {
         claw = hardwareMap.servo.get("claw");
+        hinge = hardwareMap.servo.get("hinge");
+        hinge.setPosition(ANGLED);
         claw.setPosition(CLOSED);
     }
-
-    //Manual below here
 
     public void close() {
         claw.setPosition(CLOSED);
@@ -32,6 +35,9 @@ public class Claw {
         claw.setPosition(0.5);
     }
 
+    public void rotStraight() {hinge.setPosition(STRAIGHT);}
+    public void rotAngled() {hinge.setPosition(ANGLED);}
+    public void rotSet(double rot) {hinge.setPosition(rot);}
 
     public void toggle() {
         if (claw.getPosition() == CLOSED)
@@ -41,23 +47,5 @@ public class Claw {
     }
 
     public double getPos() {return claw.getPosition(); }
-
-    //Roadrunner below here
-
-    public class SetClawPosition implements Action {
-        private long endTime;
-        public SetClawPosition(double position, double duration) {
-            claw.setPosition(position);
-            long startTime = System.currentTimeMillis();
-            endTime = startTime + (int)(duration * 1000);
-        }
-
-        public boolean run(@NonNull TelemetryPacket packet) {
-            return (System.currentTimeMillis() < endTime);
-        }
-    }
-
-    public Action closeAction() {return new SetClawPosition(CLOSED, 0.3); }
-    public Action openAction() {return new SetClawPosition(OPEN, 0.3); }
 
 }

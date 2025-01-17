@@ -21,26 +21,32 @@ public class MainAuto extends LinearOpMode{
 
             bot.drive.SetBrakes(false);
 
-            bot.drive.toVectorOld(0, 750, 1);
+            bot.drive.toVectorOld(0, 600, 1.0);
 
-            bot.waitSeconds(1);
+            bot.waitSeconds(0.5);
+            bot.drive.toVectorOld(0, 100, 0.3);
+            bot.waitSeconds(0.25);
 
             bot.drive.SetBrakes(true);
 
-            bot.setArmPos(-300);
+            bot.setArmPos(-280);
 
-            bot.setSlidePos(900, 1.0);
+            bot.setSlidePos(650, 0.6);
 
             //bot.setRobotPosition(-360, 1500, 1);
 
-            bot.setArmPos(-370);
+            bot.setArmPos(-340);
 
             bot.waitSeconds(0.3);
 
             //Pull down block
             bot.setSlidePos(0, 0.5);
+            /*
+            bot.setArmPos(-390);
+            bot.waitSeconds(0.2);
 
-            bot.drive.toVectorOld(0, -60, 0.5);
+            bot.drive.toVectorOld(0, -60, 0.5);*/
+            bot.waitSeconds(0.5);
 
             bot.claw.open();
 
@@ -52,23 +58,23 @@ public class MainAuto extends LinearOpMode{
             bot.waitSeconds(0.6);
 
             //Drive backwards away from bar
-            bot.drive.toVectorOld(0, -600);
+            bot.drive.toVectorOld(0, -500);
 
             bot.waitSeconds(0.6);
 
 
             //Turn 90 deg clockwise
-        bot.drive.turn(190, 1.0);
+            bot.drive.turn(230, 1.0);
 
             bot.waitSeconds(0.6);
 
             //Drive forward to sample area
-                bot.drive.toVectorOld(0, 1800);
+            bot.drive.toVectorOld(0, 1900);
 
             bot.waitSeconds(0.5);
 
             //Turn clockwise to human player
-            bot.drive.turn(230, 1.0);
+            bot.drive.turn(285, 1.0);
 
                 /*
             bot.drive.strafe(2800, 1.0);
@@ -84,12 +90,13 @@ public class MainAuto extends LinearOpMode{
             //bot.waitSeconds(0.5);
 
             //Set arm in position to add block
-                bot.setArmPos(-930);
+                bot.setArmPos(-915);
+
 
             bot.waitSeconds(0.7);
 
             //Grab second block
-                bot.setSlidePos(2100, 1.0);
+                bot.setSlidePos(1500, 0.7);
 
                 bot.waitSeconds(1.0);
 
@@ -110,74 +117,54 @@ public class MainAuto extends LinearOpMode{
                 //bot.waitSeconds(0.5);
 
                 //Turn right parallel to wall and sample hanging bars
-                    bot.drive.turn(270, 1.0);
+                    bot.drive.turn(275, 1.0);
 
                 bot.waitSeconds(0.5);
 
                 //Drive forward to the bars
-                    bot.drive.toVectorOld(0,1600);
+                    bot.drive.toVectorOld(0,1700);
 
                 bot.waitSeconds(0.5);
 
                 //Turn right to face bars
-                    bot.drive.turn(270, 1.0);
+                bot.drive.turn(260, 1.0);
 
                 bot.waitSeconds(0.5);
 
-                bot.drive.SetBrakes(false);
+        bot.drive.SetBrakes(false);
 
-                //Drive up to bars
-                bot.drive.toVectorOld(0,700);
+        bot.drive.toVectorOld(0, 600, 1.0);
 
-                bot.waitSeconds(0.5);
+        bot.waitSeconds(0.5);
+        bot.drive.toVectorOld(0, 80, 0.5);
+        bot.waitSeconds(0.25);
 
-                bot.drive.SetBrakes(true);
+        bot.drive.SetBrakes(true);
 
-                bot.setArmPos(-300);
+        bot.setArmPos(-260);
 
-                bot.setSlidePos(900);
+        bot.setSlidePos(650, 0.4);
 
-                //bot.setRobotPosition(-360, 1500, 1);
+        //bot.setRobotPosition(-360, 1500, 1);
 
-                bot.setArmPos(-350);
+        bot.setArmPos(-320);
 
-                //Pull down block
-                bot.setSlidePos(0, 0.5);
+        bot.waitSeconds(0.3);
 
-                bot.claw.open();
+        //Pull down block
+        bot.setSlidePos(0, 0.5);
+            /*
+            bot.setArmPos(-390);
+            bot.waitSeconds(0.2);
 
-                bot.waitSeconds(0.6);
+            bot.drive.toVectorOld(0, -60, 0.5);*/
+        bot.waitSeconds(0.5);
 
-                //SECOND BLOCK
-                bot.setArmPos(-380);
+        bot.claw.open();
 
-                bot.waitSeconds(0.6);
-
-                //Drive backwards away from bar
-                bot.drive.toVectorOld(0, -400);
+        bot.waitSeconds(0.6);
 
 
-
-                /* bot.waitSeconds(1);
-
-                //Raise arm up to bar
-                    bot.setRobotPosition(-370, 1600, 0.5);
-
-                //Hang sample
-                    bot.setArmPos(-460);
-
-                    bot.setSlidePos(250, 0.5);
-
-                    bot.claw.open();
-
-            bot.waitSeconds(0.6);
-
-            bot.setArmPos(-380);
-
-            bot.waitSeconds(0.6);
-
-            //PARKING
-                bot.drive.toVectorOld(0, -200);*/
 
             stop();
     }

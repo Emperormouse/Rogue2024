@@ -55,38 +55,6 @@ public class Slides {
         return Math.abs(diff) < 10;
     }
 
-    //Roadrunner
-
-    /*
-    public class SetHeight implements Action {
-        private int targetTicks;
-        private final double kP = 0.01;
-
-        public SetHeight(double fractionHeight) {
-            targetTicks = (int)(fractionHeight * ticksPerRotation * rotationsForExtension);
-        }
-
-        @Override
-        public boolean run(@NonNull TelemetryPacket packet) {
-            if (motor.getCurrentPosition() == targetTicks) {
-                motor.setPower(0.0);
-                return false;
-            }
-
-            int error = targetTicks - motor.getCurrentPosition();
-            double p = error * kP;
-
-            motor.setPower(0.3 * p);
-            return true;
-        }
-    }
-
-    public Action setHeight(double fraction) {
-        return new SetHeight(fraction);
-    }
-    public Action extendAction() { return new SetHeight(1.0); }
-    public Action retractAction() { return new SetHeight(0.0); }
-    */
 
 
 }

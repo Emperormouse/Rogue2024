@@ -62,60 +62,25 @@ public class Arm {
         return Math.abs(diff) < 10;
     }
 
+    public boolean setPosition(int targetTicks, double speed) {
+        final double p = 0.003;
+
+        int diff = targetTicks - arm1.getCurrentPosition();
+        //double divisor = 1.5*Math.max(Math.abs(diff), 1);
+        if (Math.abs(diff * p) > speed) {
+            int direction = (diff > 0) ? 1 : -1;
+            arm1.setPower(speed * direction);
+            arm2.setPower(-speed * direction);
+        }
+        arm1.setPower(diff * p);
+        arm2.setPower(-diff * p);
+
+        return Math.abs(diff) < 10;
+    }
+
     public int getPos() {
         return arm1.getCurrentPosition();
     }
-
-    //Roadrunner below here
-
-    /*
-    public class Raise implements Action {
-        private final int targetTicks = 1000;
-        private final double kP = 0.01;
-
-        @Override
-        public boolean run(@NonNull TelemetryPacket packet) {
-            if (arm1.getCurrentPosition() == targetTicks) {
-                arm1.setPower(0.0);
-                arm2.setPower(0.0);
-                return false;
-            }
-
-            int error = targetTicks - arm1.getCurrentPosition();
-            double p = error * kP;
-
-            arm1.setPower(0.8 * p);
-            arm1.setPower(0.8 * p);
-            return true;
-        }
-    }
-
-    public class Lower implements Action {
-        private final int targetTicks = 100;
-        private final double kP = 0.01;
-
-
-        @Override
-        public boolean run(@NonNull TelemetryPacket packet) {
-            if (arm1.getCurrentPosition() == targetTicks) {
-                arm1.setPower(0.0);
-                arm2.setPower(0.0);
-                return false;
-            }
-
-            int error = targetTicks - arm1.getCurrentPosition();
-            double p = error * kP;
-
-            arm1.setPower(0.8 * p);
-            arm2.setPower(0.8 * p);
-            return true;
-        }
-    }
-
-
-    public Action raiseAction() {return new Raise(); }
-    public Action lowerAction() {return new Lower(); }
-    */
 
 
 }
