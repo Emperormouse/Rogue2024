@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Slides;
 
-@TeleOp
+@TeleOp(name = "MainTele")
 public class MainTeleOp extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
@@ -20,8 +20,13 @@ public class MainTeleOp extends LinearOpMode {
         DcMotor frontRightMotor = (DcMotorEx) hardwareMap.dcMotor.get("rightFront");
         DcMotor backRightMotor = (DcMotorEx) hardwareMap.dcMotor.get("rightBack");
 
-        frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        /*frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);*/
+
+        //frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        //frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         frontRightMotor.setPower(0);
         frontLeftMotor.setPower(0);
@@ -104,13 +109,9 @@ public class MainTeleOp extends LinearOpMode {
                 claw.close();
             }
 
-            if (gamepad2.x) {
-                claw.rotAngled();
-            } else if (gamepad2.y) {
-                claw.rotStraight();
-            }
 
-            if (gamepad2.dpad_down) {
+
+            if (gamepad2.dpad_right) {
                 targetArmTicks = -900;
             }
             if (gamepad2.dpad_up) {
@@ -131,15 +132,14 @@ public class MainTeleOp extends LinearOpMode {
 
 
 
-            if (gamepad2.right_bumper && !previousXButton) {
+            if (gamepad2.x && !previousXButton) {
                 claw.toggle();
             }
-            previousXButton = gamepad2.right_bumper;
+            previousXButton = gamepad2.x;
 
 
 
 
-            telemetry.addData("arm", arm.getPos());
             telemetry.addData("slides", slides.getPos());
             telemetry.addData("Left: ", frontLeftMotor.getCurrentPosition());
             telemetry.addData("Right: ", frontRightMotor.getCurrentPosition());

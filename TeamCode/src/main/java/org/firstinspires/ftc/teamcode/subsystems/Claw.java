@@ -9,18 +9,11 @@ import com.qualcomm.robotcore.hardware.*;
 public class Claw {
 
     private Servo claw;
-    private Servo hinge;
-    private final double CLOSED = 0.6;
-    private final double OPEN = 0.4;
-
-    private final double STRAIGHT = 0.2;
-    private final double ANGLED = 1.0;
-
+    private final double CLOSED = 0.8;
+    private final double OPEN = 0.5;
 
     public Claw(HardwareMap hardwareMap) {
         claw = hardwareMap.servo.get("claw");
-        hinge = hardwareMap.servo.get("hinge");
-        hinge.setPosition(ANGLED);
         claw.setPosition(CLOSED);
     }
 
@@ -34,10 +27,6 @@ public class Claw {
     public void stop() {
         claw.setPosition(0.5);
     }
-
-    public void rotStraight() {hinge.setPosition(STRAIGHT);}
-    public void rotAngled() {hinge.setPosition(ANGLED);}
-    public void rotSet(double rot) {hinge.setPosition(rot);}
 
     public void toggle() {
         if (claw.getPosition() == CLOSED)
