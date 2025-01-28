@@ -65,15 +65,15 @@ public class Drive {
     }
 
     public void toVectorOld(int targetX, int targetY) {
-        int currentX = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition());
-        int currentY = (frontLeft.getCurrentPosition() + frontRight.getCurrentPosition());
+        int currentX = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition() - backLeft.getCurrentPosition() + backRight.getCurrentPosition())/4;
+        int currentY = (frontLeft.getCurrentPosition() + frontRight.getCurrentPosition() + backLeft.getCurrentPosition() + backRight.getCurrentPosition())/4;
         int startX = currentX;
         int startY = currentY;
         int distanceTraveledX = 0;
         int distanceTraveledY = 0;
         while(Math.abs(distanceTraveledX) < Math.abs(targetX) || Math.abs(distanceTraveledY) < Math.abs(targetY)) {
-            currentX = frontLeft.getCurrentPosition()/* - frontRight.getCurrentPosition())/2*/;
-            currentY = frontLeft.getCurrentPosition()/* + frontRight.getCurrentPosition())/2*/;
+            currentX = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition() - backLeft.getCurrentPosition() + backRight.getCurrentPosition())/4;
+            currentY = (frontLeft.getCurrentPosition() + frontRight.getCurrentPosition() + backLeft.getCurrentPosition() + backRight.getCurrentPosition())/4;
 
             distanceTraveledX = currentX - startX;
             distanceTraveledY = currentY - startY;
@@ -105,15 +105,15 @@ public class Drive {
      * @param speed - between 1.0 and 0.0
      */
     public void toVectorOld(int targetX, int targetY, double speed) {
-        int currentX = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition());
-        int currentY = (frontLeft.getCurrentPosition() + frontRight.getCurrentPosition());
+        int currentX = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition() - backLeft.getCurrentPosition() + backRight.getCurrentPosition())/4;
+        int currentY = (frontLeft.getCurrentPosition() + frontRight.getCurrentPosition() + backLeft.getCurrentPosition() + backRight.getCurrentPosition())/4;
         int startX = currentX;
         int startY = currentY;
         int distanceTraveledX = 0;
         int distanceTraveledY = 0;
         while(Math.abs(distanceTraveledX) < Math.abs(targetX) || Math.abs(distanceTraveledY) < Math.abs(targetY)) {
-            currentX = frontLeft.getCurrentPosition()/* - frontRight.getCurrentPosition())/2*/;
-            currentY = frontLeft.getCurrentPosition()/* + frontRight.getCurrentPosition())/2*/;
+            currentX = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition() - backLeft.getCurrentPosition() + backRight.getCurrentPosition())/4;
+            currentY = (frontLeft.getCurrentPosition() + frontRight.getCurrentPosition() + backLeft.getCurrentPosition() + backRight.getCurrentPosition())/4;
 
             distanceTraveledX = currentX - startX;
             distanceTraveledY = currentY - startY;
@@ -234,11 +234,11 @@ public class Drive {
      * @param speed - double ranging from 0 to 1
      */
     public void turn(int targetTicks, double speed) {
-        int currentTicks = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition())/2;
+        int currentTicks = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition() + frontLeft.getCurrentPosition() - frontRight.getCurrentPosition())/4;
         int startTicks = currentTicks;
         int distanceTraveled = 0;
         while(Math.abs(distanceTraveled) < Math.abs(targetTicks)) {
-            currentTicks = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition())/2;
+            currentTicks = (frontLeft.getCurrentPosition() - frontRight.getCurrentPosition() + frontLeft.getCurrentPosition() - frontRight.getCurrentPosition())/4;
 
             distanceTraveled = currentTicks - startTicks;
 
@@ -263,7 +263,7 @@ public class Drive {
 
     public void addDriveData() {
 
-        telemetry.addData("Front Left: ", (int)(frontLeft.getCurrentPosition()*1.2));
+        telemetry.addData("Front Left: ", frontLeft.getCurrentPosition());
         telemetry.addData("Back Left: ", backLeft.getCurrentPosition());
         telemetry.addData("Front Right: ", frontRight.getCurrentPosition());
         telemetry.addData("Back Right: ", backRight.getCurrentPosition());

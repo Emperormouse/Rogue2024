@@ -109,8 +109,6 @@ public class MainTeleOp extends LinearOpMode {
                 claw.close();
             }
 
-
-
             if (gamepad2.dpad_right) {
                 targetArmTicks = -900;
             }
@@ -125,9 +123,8 @@ public class MainTeleOp extends LinearOpMode {
             }
 
             if (gamepad2.right_bumper && gamepad2.left_bumper) {
-                while(opModeIsActive()) {
-                    slides.setPosition(0, 1.0);
-                }
+                slides.setPower(-1.0);
+                while(opModeIsActive());
             }
 
 

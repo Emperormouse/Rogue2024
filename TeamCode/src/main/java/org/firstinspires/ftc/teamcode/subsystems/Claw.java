@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.*;
 public class Claw {
 
     private Servo claw;
-    private final double CLOSED = 0.8;
-    private final double OPEN = 0.5;
+    private final double CLOSED = 0.7;
+    private final double OPEN = 0.4;
 
     public Claw(HardwareMap hardwareMap) {
         claw = hardwareMap.servo.get("claw");
