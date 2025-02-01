@@ -20,23 +20,25 @@ public class SampleAuto extends LinearOpMode {
         while (!isStarted()) {
             bot.holdPosition();
         }
+        bot.claw.close();
         bot.setArmPos(-50);
 
         bot.drive.toVectorOld(0,700);
 
-        bot.drive.toVectorOld(0, 300, 0.5);
+        bot.drive.toVectorOld(0, 450, 0.5);
 
         bot.waitSeconds(0.4);
 
         bot.drive.turn(-20,1);
 
-        bot.setSlidePos(2300,1);
 
         bot.drive.toVectorOld(0,100,0.5);
+        bot.setSlidePos(2300,1);
+
 
         bot.setArmPos(-150);
 
-        bot.waitSeconds(1.5);
+        bot.waitSeconds(1d);
 
         bot.claw.open();
 

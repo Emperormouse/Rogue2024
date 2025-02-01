@@ -23,6 +23,7 @@ public class Arm {
 
         arm1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         arm2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
     }
 
     public void raise() {
@@ -71,9 +72,10 @@ public class Arm {
             int direction = (diff > 0) ? 1 : -1;
             arm1.setPower(speed * direction);
             arm2.setPower(-speed * direction);
+        } else {
+            arm1.setPower(diff * p);
+            arm2.setPower(-diff * p);
         }
-        arm1.setPower(diff * p);
-        arm2.setPower(-diff * p);
 
         return Math.abs(diff) < 10;
     }

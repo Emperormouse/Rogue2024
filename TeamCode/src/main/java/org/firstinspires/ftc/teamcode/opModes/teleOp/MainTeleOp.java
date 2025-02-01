@@ -75,7 +75,7 @@ public class MainTeleOp extends LinearOpMode {
                 arm.setPower(-gamepad2.left_stick_y);
                 targetArmTicks = arm.getPos();
             } else {
-                arm.setPosition(targetArmTicks);
+                arm.setPosition(targetArmTicks, 0.5);
             }
 
             /*
@@ -103,28 +103,22 @@ public class MainTeleOp extends LinearOpMode {
                 slides.stop();
             }*/
 
-            if (gamepad2.a) {
+            if (gamepad2.a && !gamepad2.x) {
                 claw.open();
             } else if (gamepad2.b) {
                 claw.close();
             }
 
-            if (gamepad2.dpad_right) {
-                targetArmTicks = -900;
-            }
-            if (gamepad2.dpad_up) {
-                while(!arm.setPosition(-800));
-                boolean isAtPos = false;
-                while(!isAtPos) {
-                    isAtPos = slides.setPosition(200, 0.7);
-                    arm.setPosition(-800);
-                }
-                while(!arm.setPosition(-400));
+            if (gamepad2.dpad_down) {
+                targetArmTicks = -810;
             }
 
+
             if (gamepad2.right_bumper && gamepad2.left_bumper) {
-                slides.setPower(-1.0);
-                while(opModeIsActive());
+                slides.setPower(1.0);
+                while(opModeIsActive()) {
+                    if (gamepad2.a && gamepad2.x) break;
+                };
             }
 
 

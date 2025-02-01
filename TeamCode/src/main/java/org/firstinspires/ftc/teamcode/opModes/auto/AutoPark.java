@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 
-@Autonomous(name = "Auto PARK")
+@Autonomous(name = "OLD Auto PARK")
 public class AutoPark extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException {

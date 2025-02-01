@@ -37,6 +37,15 @@ public class Robot {
         }
     }
 
+    public void setArmPos(int pos, double speed) {
+        armPos = pos;
+        boolean isAtPos = false;
+        while(!isAtPos) {
+            isAtPos = arm.setPosition(armPos, speed);
+            slides.setPosition(slidesPos, 0.5);
+        }
+    }
+
     //Set's slide's position (0.5 default speed)
     public void setSlidePos(int pos) {
         slidesPos = pos;
