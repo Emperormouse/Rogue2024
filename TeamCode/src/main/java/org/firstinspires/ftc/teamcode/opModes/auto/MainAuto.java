@@ -5,178 +5,197 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 
-@Autonomous(name = "MAIN AUTO >:(")
+@Autonomous(name = "MAIN AUTO")
 public class MainAuto extends LinearOpMode{
 
     public void runOpMode() throws InterruptedException {
         Robot bot = new Robot(hardwareMap, telemetry);
         //Drive drive = new Drive(hardwareMap, telemetry);
-        bot.setArmPos(-750);
+        bot.setArmPos(-750, 0.4);
         while(!isStarted()) {
             bot.holdPosition();
         }
 
         //FIRST BLOCK
-            bot.setArmPos(-200);
-            bot.waitSeconds(0.5);
-
-            bot.drive.SetBrakes(false);
-
-            bot.drive.toVectorOld(0, 600, 1.0);
-
-            bot.waitSeconds(0.5);
-            bot.drive.toVectorOld(0, 250, 0.3);
-            bot.waitSeconds(0.25);
-
-            bot.drive.SetBrakes(true);
-
-            bot.setSlidePos(450);
-
-            bot.setArmPos(-325);
-            bot.waitSeconds(0.3);
-
-            bot.setSlidePos(1000, 0.4);
-
-            bot.claw.open();
-            bot.waitSeconds(0.3);
-            //bot.setRobotPosition(-360, 1500, 1);
-
-            bot.setArmPos(-100);
-
-            bot.waitSeconds(0.3);
-
-            //Pull down block
-            bot.setSlidePos(0, 0.5);
-
-            //Drive backwards away from bar
-            bot.drive.toVectorOld(0, -550);
-
-            bot.waitSeconds(0.6);
-
-
-            //Turn 90 deg clockwise
-            bot.drive.turn(230, 1.0);
-
-            bot.waitSeconds(0.6);
-
-            //Drive forward to sample area
-            bot.drive.toVectorOld(0, 1700);
-
-            bot.waitSeconds(0.5);
-
-            //Turn clockwise to human player
-
-
-        bot.drive.turn(280, 1.0);
-
-        bot.drive.SetBrakes(false);
-
-        bot.drive.toVectorOld(0, 500, 1.0);
-
-        bot.drive.toVectorOld(0, 300, 0.5);
+        bot.setArmPos(-200);
         bot.waitSeconds(0.3);
 
-        bot.drive.SetBrakes(true);
-        bot.waitSeconds(0.3);
-        bot.drive.toVectorOld(0, -150);
 
-
-
-
-        //bot.drive.toVectorOld(0,100);
-
-                /*
-            bot.drive.strafe(2800, 1.0);
-
-            bot.waitSeconds(0.5);
-
-            bot.drive.turn(650, 0.5);*/
-
-            bot.waitSeconds(0.5);
-
-            //bot.drive.toVectorOld(0, 200);
-
-            //bot.waitSeconds(0.5);
-
-            //Set arm in position to add block
-                bot.setArmPos(-860);
-
-
-            bot.waitSeconds(0.7);
-
-            //Grab second block
-                bot.setSlidePos(630, 0.7);
-
-                bot.waitSeconds(1.0);
-
-                bot.claw.close();
-
-                bot.waitSeconds(0.5);
-
-                bot.setArmPos(-750);
-
-                bot.setSlidePos(0, 1.0);
-
-                bot.setArmPos(-500);
-            //Drive to score second sample
-                bot.waitSeconds(0.5);
-
-                //bot.drive.toVectorOld(0, -50);
-
-                //bot.waitSeconds(0.5);
-
-                //Turn right parallel to wall and sample hanging bars
-                    bot.drive.turn(300, 1.0);
-
-                bot.waitSeconds(0.5);
-
-                //Drive forward to the bars
-                    bot.drive.toVectorOld(0,1600);
-
-                bot.waitSeconds(0.5);
-
-                //Turn right to face bars
-                bot.drive.turn(280, 1.0);
-
-                bot.waitSeconds(0.5);
-
-
-
-        bot.drive.SetBrakes(false);
-
-        bot.drive.toVectorOld(0, 400, 1.0);
+        bot.drive.toVectorOld(0, 800, 1.0);
 
         bot.waitSeconds(0.5);
-        bot.drive.toVectorOld(0, 250, 0.5);
+        bot.drive.SetBrakes(false);
+        bot.drive.toVectorOld(0, 750, 0.6);
         bot.waitSeconds(0.25);
 
         bot.drive.SetBrakes(true);
 
-        bot.setArmPos(-200);
+        bot.setSlidePos(650);
 
-        bot.setSlidePos(800, 0.6);
+        bot.setArmPos(-360);
+        bot.waitSeconds(0.3);
+
+        bot.setSlidePos(1150, 1);
+
+        bot.claw.open();
+        bot.waitSeconds(0.3);
+
+        bot.setSlidePos(1050, 0.7);
 
         //bot.setRobotPosition(-360, 1500, 1);
 
-        bot.setArmPos(-280);
+        bot.setArmPos(-100, 0.5);
 
         bot.waitSeconds(0.3);
 
-        //Pull down block
-        bot.setSlidePos(0, 0.5);
-            /*
-            bot.setArmPos(-390);
-            bot.waitSeconds(0.2);
 
-            bot.drive.toVectorOld(0, -60, 0.5);*/
+        //Pull down block
+        bot.setSlidePos(0, 0.6);
+        bot.drive.SetBrakes(false);
+
+
+        //Drive backwards away from bar
+        bot.drive.toVectorOld(0, -450);
+        bot.waitSeconds(0.3);
+        //bot.drive.toVectorOld(0, -200, 0.5);
+
+        bot.claw.close();
+        bot.waitSeconds(0.4);
+
+        //Turn 90 deg clockwise
+        bot.drive.SetBrakes(true);
+        bot.drive.turn(700, 1.0);
+        bot.waitSeconds(0.3);
+        bot.drive.SetBrakes(false);
+
+
+        bot.drive.strafe(150, 0.5);
+        bot.drive.SetBrakes(true);
+        //Drive forward to sample area
+        bot.drive.toVectorOld(0, 1950);
+        //bot.drive.toVectorOld(0, 1850); UNCOMMENT AFTER THIS ROUND
+
+        bot.waitSeconds(0.4);
+
+        bot.drive.strafe(-100, 1.0);
         bot.waitSeconds(0.5);
 
+        bot.drive.SetBrakes(true);
+        bot.drive.turn(750, 1.0);
+        bot.waitSeconds(0.3);
+        bot.drive.SetBrakes(false);
+
+        bot.drive.toVectorOld(0, 850, 0.8);
+        bot.waitSeconds(0.5);
+
+
+
+        //bot.drive.toVectorOld(0, 400, 0.5);
+        //bot.waitSeconds(0.5);
+
+        bot.drive.toVectorOld(0, -10, 0.5);
+
+
+        //bot.drive.SetBrakes(true);
+        //bot.drive.toVectorOld(0, -100);
+        //bot.waitSeconds(0.5);
+        //bot.drive.SetBrakes(true);
+
         bot.claw.open();
+        //bot.setSlidePos(0, 1.0);
+        bot.setArmPos(-820, 0.3);
 
-        bot.waitSeconds(0.6);
+        bot.waitSeconds(1.0);
+
+        //Grab second block
+        bot.setSlidePos(250, 0.7);
+        bot.waitSeconds(0.1);
+        bot.setArmPos(-845, 0.3);
+        bot.waitSeconds(0.2);
+
+        bot.claw.close();
+        bot.waitSeconds(0.7);
+        bot.setArmPos(-550);
+        bot.setSlidePos(0, 1.0);
+        bot.setArmPos(-200);
+        bot.waitSeconds(0.2);
+
+        bot.drive.toVectorOld(0, -200);
+        bot.waitSeconds(0.5);
+
+        bot.drive.SetBrakes(true);
+        bot.drive.turn(800, 1.0);
+        bot.waitSeconds(0.3);
+
+        //bot.drive.strafe(-200, 0.7);
+        //bot.waitSeconds(0.5);
+        //bot.drive.strafe(100, 1.0);
 
 
+        //bot.drive.SetBrakes(false);
+
+        //=====GRAB=====
+        //bot.setArmPos(-1100);
+        //bot.setSlidePos(300, 0.6);
+        //bot.claw.open();
+        //bot.setSlidePos(500, 0.6);
+        //bot.claw.close();
+        //bot.waitSeconds(0.2);
+        //bot.setArmPos(-200);
+
+        //bot.drive.strafe(-500, 0.3);
+        bot.drive.SetBrakes(true);
+
+        bot.drive.toVectorOld(0, 1700);
+        bot.waitSeconds(0.2);
+        bot.drive.turn(750, 1.0);
+        bot.waitSeconds(0.2);
+        bot.drive.SetBrakes(false);
+        //bot.drive.toVectorOld(0, 300);
+        //bot.waitSeconds(0.5);
+        //bot.drive.toVectorOld(0, -500, 0.3);
+
+
+        bot.setArmPos(-170);
+        bot.waitSeconds(0.3);
+
+
+        bot.drive.toVectorOld(0, 600, 1.0);
+
+        bot.waitSeconds(0.5);
+        bot.drive.SetBrakes(false);
+
+        bot.drive.toVectorOld(0, 500, 0.6);
+        bot.waitSeconds(0.4);
+
+
+        bot.drive.SetBrakes(true);
+
+        bot.drive.toVectorOld(0,-80);
+
+        bot.setSlidePos(880);
+
+        bot.waitSeconds(0.3);
+
+        bot.setArmPos(-460, 0.2);
+        bot.waitSeconds(0.5);
+
+        bot.setSlidePos(0, 0.5);
+        bot.waitSeconds(0.2);
+
+
+        //bot.setSlidePos(0, 0.4);
+
+        bot.claw.open();
+        bot.waitSeconds(0.3);
+        //bot.setRobotPosition(-360, 1500, 1);
+
+        bot.setArmPos(-100);
+
+
+        bot.waitSeconds(0.5);
 
         stop();
     }
 }
+
