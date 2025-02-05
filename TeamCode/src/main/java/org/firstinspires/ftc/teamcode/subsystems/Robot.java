@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Utility.Pos2D;
 import org.firstinspires.ftc.teamcode.Utility.Vector2D;
+import java.lang.Math;
 
 public class Robot {
 
@@ -13,7 +14,7 @@ public class Robot {
     public Slides slides;
 
     private int armPos = 0;
-    private int slidesPos = 0;
+    private int slidesPos = 500;
 
     private Pos2D drivePos;
 
@@ -33,7 +34,7 @@ public class Robot {
         boolean isAtPos = false;
         while(!isAtPos) {
             isAtPos = arm.setPosition(armPos);
-            slides.setPosition(slidesPos, 0.5);
+            slides.stop();
         }
     }
 
@@ -42,7 +43,7 @@ public class Robot {
         boolean isAtPos = false;
         while(!isAtPos) {
             isAtPos = arm.setPosition(armPos, speed);
-            slides.setPosition(slidesPos, 0.5);
+            slides.stop();
         }
     }
 
@@ -79,6 +80,24 @@ public class Robot {
         }
     }
 
+    public void setRobotPosition(int armPos, double armSpeed, int slidesPos, double slideSpeed) {
+        this.armPos = armPos;
+        this.slidesPos = slidesPos;
+        boolean isAtArmPos = false;
+        boolean isAtSlidesPos = false;
+
+        while( !(isAtArmPos && isAtSlidesPos) ) {
+            isAtArmPos = arm.setPosition(armPos, armSpeed);
+            isAtSlidesPos = slides.setPosition(slidesPos, slideSpeed);
+
+            telemetry.addData("Slides: ", slides.getPos());
+            telemetry.addData("Arm: ", arm.getPos());
+
+
+            telemetry.update();
+        }
+    }
+
     /**
      * @param diffPos Vector that holds the x and y of the drive position. Use: new Vector2D(x,y) to set a drive position
      */
@@ -105,7 +124,7 @@ public class Robot {
         while(!isAtPos) {
             isAtPos = drive.toPosition(drivePos);
             arm.setPosition(armPos);
-            slides.setPosition(slidesPos, 0.5);
+            slides.stop();
             /*
             drive.addDriveData();
             telemetry.update();*/
@@ -118,7 +137,7 @@ public class Robot {
         while(!isAtPos) {
             isAtPos = drive.turnTo(ticks);
             arm.setPosition(armPos);
-            slides.setPosition(slidesPos, 0.5);
+            slides.stop();
             /*
             drive.addDriveData();
             telemetry.update();*/
@@ -130,7 +149,7 @@ public class Robot {
         long startTime = System.currentTimeMillis();
         while(System.currentTimeMillis() - startTime < (seconds * 1000)) {
             arm.setPosition(armPos);
-            slides.setPosition(slidesPos, 0.5);
+            slides.stop();
             drive.addDriveData();
             telemetry.update();
             //drive.toPosition(drivePos);
@@ -139,9 +158,16 @@ public class Robot {
 
     public void holdPosition() {
         arm.setPosition(armPos);
-        slides.setPosition(slidesPos, 0.5);
+        slides.stop();
         //drive.toPosition(drivePos);
     }
 
+    public int testAngle(/*int constant, */int b, int m, double slideLength) {
+        /*final double angleToTicks = constant;
+        final double height = 1600;
+        double angle = (90 - Math.toDegrees(Math.acos(height/slideLength))) * angleToTicks;
+        return -1000 - angle;*/
 
+        return (int)(b + (Math.sqrt(slideLength) * m));
+    }
 }

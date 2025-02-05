@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
+import org.firstinspires.ftc.teamcode.subsystems.Robot;
 import org.firstinspires.ftc.teamcode.subsystems.Slides;
 
 @TeleOp(name = "MainTele")
@@ -38,6 +39,8 @@ public class MainTeleOp extends LinearOpMode {
         Arm arm = new Arm(hardwareMap);
         Claw claw = new Claw(hardwareMap);
 
+        Robot bot = new Robot(hardwareMap, telemetry);
+
         /* Reverse the right side motors. This may be wrong for your setup.
         If your robot moves backwards when commanded to go forwards,
         reverse the left side instead.
@@ -51,6 +54,7 @@ public class MainTeleOp extends LinearOpMode {
 
         int targetArmTicks = arm.getPos();
         boolean previousXButton = false;
+        int mode = 0; // 0 = normal, 1 = intake
 
         while (opModeIsActive()) {
             double y = gamepad1.left_stick_y;
@@ -66,42 +70,36 @@ public class MainTeleOp extends LinearOpMode {
             double frontRightPower = (y - x - rx) / denominator;
             double backRightPower = (y + x - rx) / denominator;
 
-            frontLeftMotor.setPower(frontLeftPower);
-            backLeftMotor.setPower(backLeftPower);
+            frontLeftMotor.setPower(-frontLeftPower);
+            backLeftMotor.setPower(-backLeftPower);
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
 
-            if (gamepad2.left_stick_y != 0) {
-                arm.setPower(-gamepad2.left_stick_y);
-                targetArmTicks = arm.getPos();
-            } else {
-                arm.setPosition(targetArmTicks, 0.5);
-            }
+            // DRIVER TWO BELOW
 
-            /*
-            if (gamepad2.left_stick_y < 0) { //Reversed direction, may or may not be more intuitive
-                arm.raise();
-                targetArmTicks = arm.getPos();
-            } else if (gamepad2.left_stick_y > 0) {
-                arm.lower();
-                targetArmTicks = arm.getPos();
-            } else {
-                arm.setPosition(targetArmTicks);
-            }*/
+            if (gamepad2.dpad_left)
+                mode = 0;
+            else if (gamepad2.dpad_right)
+                mode = 1;
+
 
             if (gamepad2.right_stick_y != 0)
                 slides.setPower(gamepad2.right_stick_y);
             else
                 slides.stop();
 
-            /*
-            if (gamepad2.right_stick_y > 0) {
-                slides.extend();
-            } else if (gamepad2.right_stick_y < 0) {
-                slides.retract();
+
+            if (mode == 1) { // INTAKE MODE
+                arm.setPosition(bot.testAngle(-1100, 20, slides.getPos()), 0.3);
             } else {
-                slides.stop();
-            }*/
+                if (gamepad2.left_stick_y != 0) {
+                    arm.setPower(-gamepad2.left_stick_y);
+                    targetArmTicks = arm.getPos();
+                } else {
+                    arm.setPosition(targetArmTicks, 0.5);
+                }
+            }
+
 
             if (gamepad2.a && !gamepad2.x) {
                 claw.open();
@@ -113,15 +111,12 @@ public class MainTeleOp extends LinearOpMode {
                 targetArmTicks = -810;
             }
 
-
             if (gamepad2.right_bumper && gamepad2.left_bumper) {
                 slides.setPower(1.0);
                 while(opModeIsActive()) {
                     if (gamepad2.a && gamepad2.x) break;
                 };
             }
-
-
 
             if (gamepad2.x && !previousXButton) {
                 claw.toggle();
@@ -130,8 +125,8 @@ public class MainTeleOp extends LinearOpMode {
 
 
 
-
-            telemetry.addData("slides", slides.getPos());
+            telemetry.addData("slides: ", slides.getPos());
+            telemetry.addData("arm: ", arm.getPos());
             telemetry.addData("Left: ", frontLeftMotor.getCurrentPosition());
             telemetry.addData("Right: ", frontRightMotor.getCurrentPosition());
 

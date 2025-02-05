@@ -72,8 +72,8 @@ public class Test extends LinearOpMode{
         bot.drive.strafe(150, 0.5);
         bot.drive.SetBrakes(true);
         //Drive forward to sample area
-        bot.drive.toVectorOld(0, 1950);
-        //bot.drive.toVectorOld(0, 1850); UNCOMMENT AFTER THIS ROUND
+        //bot.drive.toVectorOld(0, 1950);
+        bot.drive.toVectorOld(0, 1850);
 
         bot.waitSeconds(0.4);
 
@@ -87,9 +87,7 @@ public class Test extends LinearOpMode{
 
         bot.drive.toVectorOld(0, 850, 0.8);
         bot.waitSeconds(0.5);
-        stop();
 
-        /*
 
         //bot.drive.toVectorOld(0, 400, 0.5);
         //bot.waitSeconds(0.5);
@@ -147,14 +145,14 @@ public class Test extends LinearOpMode{
         //bot.drive.strafe(-500, 0.3);
         bot.drive.SetBrakes(true);
 
-        bot.drive.toVectorOld(0, 1700);
+        bot.drive.toVectorOld(0, 1750);
         bot.waitSeconds(0.2);
         bot.drive.turn(750, 1.0);
         bot.waitSeconds(0.2);
         bot.drive.SetBrakes(false);
         //bot.drive.toVectorOld(0, 300);
         //bot.waitSeconds(0.5);
-        //bot.drive.toVectorOld(0, -500, 0.3);
+        //bot.drive.toVectorOld(0, -500, 0.3);se
 
 
         bot.setArmPos(-170);
@@ -196,7 +194,7 @@ public class Test extends LinearOpMode{
 
         bot.waitSeconds(0.5);
 
-        stop();*/
+        stop();
     }
 }
 
