@@ -9,11 +9,17 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
+import org.firstinspires.ftc.teamcode.subsystems.Hinge;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 import org.firstinspires.ftc.teamcode.subsystems.Slides;
 
 @TeleOp(name = "MainTele")
 public class MainTeleOp extends LinearOpMode {
+    public void waitSeconds(double seconds) {
+        long startTime = System.currentTimeMillis();
+        while(System.currentTimeMillis() - startTime < (seconds * 1000));
+    }
+
     @Override
     public void runOpMode() throws InterruptedException {
         DcMotor frontLeftMotor = (DcMotorEx) hardwareMap.dcMotor.get("leftFront");
@@ -38,6 +44,7 @@ public class MainTeleOp extends LinearOpMode {
         Slides slides = new Slides(hardwareMap);
         Arm arm = new Arm(hardwareMap);
         Claw claw = new Claw(hardwareMap);
+        Hinge hinge = new Hinge(hardwareMap);
 
         Robot bot = new Robot(hardwareMap, telemetry);
 
@@ -90,8 +97,22 @@ public class MainTeleOp extends LinearOpMode {
 
 
             if (mode == 1) { // INTAKE MODE
-                arm.setPosition(bot.testAngle(-1100, 20, slides.getPos()), 0.3);
+                hinge.intake();
+                arm.setPosition(bot.testAngle(-1200, 3, slides.getPos()), 0.3);
+
+                if (gamepad2.right_bumper) {
+                    arm.setPower(0.3);
+                    waitSeconds(0.4);
+                    arm.setPower(0.0);
+                    claw.close();
+                    while(!slides.setPosition(300, 1.0));
+                    targetArmTicks = -100;
+                    mode = 0;
+                } else {
+                    claw.open();
+                }
             } else {
+                hinge.outake();
                 if (gamepad2.left_stick_y != 0) {
                     arm.setPower(-gamepad2.left_stick_y);
                     targetArmTicks = arm.getPos();
@@ -118,10 +139,10 @@ public class MainTeleOp extends LinearOpMode {
                 };
             }
 
-            if (gamepad2.x && !previousXButton) {
+            if (gamepad2.right_bumper && !previousXButton) {
                 claw.toggle();
             }
-            previousXButton = gamepad2.x;
+            previousXButton = gamepad2.right_bumper;
 
 
 
