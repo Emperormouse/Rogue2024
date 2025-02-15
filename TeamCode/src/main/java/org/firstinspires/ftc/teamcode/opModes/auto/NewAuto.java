@@ -20,9 +20,9 @@ public class NewAuto extends LinearOpMode{
 
         bot.drive.toVectorOld(0, -100, 1.0);
 
-        bot.setArmPos(1500);
+        bot.setArmPos(1480);
 
-        bot.setSlidePos(420);
+        bot.setSlidePos(470);
         bot.waitSeconds(0.5);
         bot.waitSeconds(0.5);
 
@@ -33,18 +33,19 @@ public class NewAuto extends LinearOpMode{
 
         bot.waitSeconds(0.5);
         bot.drive.SetBrakes(false);
-        bot.waitSeconds(0.25);
+        bot.waitSeconds(0.3);
 
         bot.drive.SetBrakes(true);
 
         //bot.setSlidePos(650);
-        bot.hinge.setPosition(0.25);
+        bot.hinge.setPosition(0.33);
 
-        bot.setSlidePos(1120, 0.5);
+
+        bot.setSlidePos(1100, 0.5);
 
         bot.claw.open();
         bot.waitSeconds(0.3);
-        bot.setSlidePos(100, 0.8);
+        bot.setSlidePos(200, 0.8);
 
         //bot.setSlidePos(1050, 0.7);
 
@@ -57,22 +58,25 @@ public class NewAuto extends LinearOpMode{
 
         //Drive backwards away from bar
         bot.wrist.setPosition(0.65);
-        bot.drive.toVectorOld(0, 550);
+        bot.drive.toVectorOld(0, 750);
         bot.waitSeconds(0.3);
         bot.claw.close();
 
         //Turn 90 deg clockwise
         bot.drive.SetBrakes(true);
 
+        bot.wrist.setPosition(0.65);
+
         bot.drive.strafe(-2500, 1.0);
 
-        bot.drive.toVectorOld(0, 850, 0.8);
+        bot.drive.toVectorOld(0, 950, 0.6);
         bot.waitSeconds(0.5);
 
-        bot.drive.toVectorOld(0, -100, 0.8);
+        bot.drive.toVectorOld(0, -160, 0.8);
+        bot.waitSeconds(1.0);
 
         bot.claw.open();
-        bot.setArmPos(590, 0.3);
+        bot.setArmPos(550, 0.3);
         bot.hinge.setPosition(0.5);
         
         //Grab second block
@@ -93,18 +97,18 @@ public class NewAuto extends LinearOpMode{
 
         bot.drive.SetBrakes(true);
 
-        bot.drive.strafe(2750, 1.0);
+        bot.drive.strafe(3150, 1.0);
         bot.waitSeconds(0.2);
         bot.drive.SetBrakes(false);
 
         bot.setArmPos(1500);
 
-        bot.setSlidePos(420);
+        bot.setSlidePos(470);
         bot.waitSeconds(0.5);
         bot.hinge.outtake();
         bot.waitSeconds(0.5);
 
-        bot.drive.toVectorOld(0, -500, 1.0);
+        bot.drive.toVectorOld(0, -500, 0.8);
 
 
         bot.waitSeconds(0.5);

@@ -11,7 +11,7 @@ public class MainAuto extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
         Robot bot = new Robot(hardwareMap, telemetry);
         //Drive drive = new Drive(hardwareMap, telemetry);
-        bot.setArmPos(-750, 0.4);
+        bot.setArmPos(-800, 0.4);
         while(!isStarted()) {
             bot.holdPosition();
         }
@@ -72,7 +72,7 @@ public class MainAuto extends LinearOpMode{
         bot.drive.strafe(150, 0.5);
         bot.drive.SetBrakes(true);
         //Drive forward to sample area
-        bot.drive.toVectorOld(0, 1950);
+        bot.drive.toVectorOld(0, 1850);
         //bot.drive.toVectorOld(0, 1850); UNCOMMENT AFTER THIS ROUND
 
         bot.waitSeconds(0.4);
@@ -102,7 +102,8 @@ public class MainAuto extends LinearOpMode{
         //bot.drive.SetBrakes(true);
 
         bot.claw.open();
-        //bot.setSlidePos(0, 1.0);
+        stop();
+        /*//bot.setSlidePos(0, 1.0);
         bot.setArmPos(-820, 0.3);
 
         bot.waitSeconds(1.0);
@@ -146,7 +147,7 @@ public class MainAuto extends LinearOpMode{
         //bot.drive.strafe(-500, 0.3);
         bot.drive.SetBrakes(true);
 
-        bot.drive.toVectorOld(0, 1700);
+        bot.drive.toVectorOld(0, 1900);
         bot.waitSeconds(0.2);
         bot.drive.turn(750, 1.0);
         bot.waitSeconds(0.2);
@@ -154,13 +155,16 @@ public class MainAuto extends LinearOpMode{
         //bot.drive.toVectorOld(0, 300);
         //bot.waitSeconds(0.5);
         //bot.drive.toVectorOld(0, -500, 0.3);
-
+        bot.claw.close();
+        bot.waitSeconds(1);
+        stop();
 
         bot.setArmPos(-170);
         bot.waitSeconds(0.3);
 
 
-        bot.drive.toVectorOld(0, 600, 1.0);
+
+        bot.drive.toVectorOld(0, 400, 1.0);
 
         bot.waitSeconds(0.5);
         bot.drive.SetBrakes(false);
@@ -177,7 +181,7 @@ public class MainAuto extends LinearOpMode{
 
         bot.waitSeconds(0.3);
 
-        bot.setArmPos(-460, 0.2);
+        bot.setArmPos(-480, 0.2);
         bot.waitSeconds(0.5);
 
         bot.setSlidePos(0, 0.5);
@@ -195,7 +199,7 @@ public class MainAuto extends LinearOpMode{
 
         bot.waitSeconds(0.5);
 
-        stop();
+        stop();*/
     }
 }
 
