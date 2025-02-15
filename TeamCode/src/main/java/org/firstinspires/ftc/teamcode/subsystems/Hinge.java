@@ -17,11 +17,16 @@ public class Hinge {
     }
 
     public void intake() {
-        hinge.setPosition(OUTAKE);
+        hinge.setPosition(0.9);
     }
 
-    public void outake() {
-        hinge.setPosition(OUTAKE);
+    public void outtake() {
+        hinge.setPosition(0.0);
+    }
+
+
+    public void setPosition(double pos) {
+        hinge.setPosition(pos);
     }
 
 

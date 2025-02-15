@@ -12,6 +12,8 @@ public class Robot {
     public Arm arm;
     public Claw claw;
     public Slides slides;
+    public Hinge hinge;
+    public Wrist wrist;
 
     private int armPos = 0;
     private int slidesPos = 500;
@@ -26,6 +28,8 @@ public class Robot {
         claw = new Claw(hardwareMap);
         slides = new Slides(hardwareMap);
         drivePos = new Pos2D(0, 0, 0);
+        hinge = new Hinge(hardwareMap);
+        wrist = new Wrist(hardwareMap);
         this.telemetry = telemetry;
     }
 

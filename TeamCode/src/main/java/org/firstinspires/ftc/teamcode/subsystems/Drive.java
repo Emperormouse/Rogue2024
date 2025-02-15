@@ -58,7 +58,7 @@ public class Drive {
         backLeft.setPower(power);
     }
     private void frontRightPower(double power) {
-        frontRight.setPower(-power);
+        frontRight.setPower(power);
     }
     private void backRightPower(double power) {
         backRight.setPower(power);

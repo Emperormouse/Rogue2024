@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Hinge;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 import org.firstinspires.ftc.teamcode.subsystems.Slides;
+import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 @TeleOp(name = "MainTele")
 public class MainTeleOp extends LinearOpMode {
@@ -47,6 +48,7 @@ public class MainTeleOp extends LinearOpMode {
         Hinge hinge = new Hinge(hardwareMap);
 
         Robot bot = new Robot(hardwareMap, telemetry);
+        Wrist wrist = new Wrist(hardwareMap);
 
         /* Reverse the right side motors. This may be wrong for your setup.
         If your robot moves backwards when commanded to go forwards,
@@ -59,13 +61,16 @@ public class MainTeleOp extends LinearOpMode {
 
         if (isStopRequested()) return;
 
-        int targetArmTicks = arm.getPos();
+        int targetArmTicks = 1000;
         boolean previousXButton = false;
-        int mode = 0; // 0 = normal, 1 = intake
+        int mode = 0;
+        int direction = 1; // direction of movement for drivetrain
+
+        wrist.setPosition(0.65);
 
         while (opModeIsActive()) {
-            double y = gamepad1.left_stick_y;
-            double x = -gamepad1.left_stick_x * 1.1;
+            double y = direction * gamepad1.left_stick_y;
+            double x = -direction * gamepad1.left_stick_x * 1.1;
             double rx = -gamepad1.right_stick_x;
 
             /* Denominator is the largest motor power (absolute value) or 1
@@ -79,48 +84,131 @@ public class MainTeleOp extends LinearOpMode {
 
             frontLeftMotor.setPower(-frontLeftPower);
             backLeftMotor.setPower(-backLeftPower);
-            frontRightMotor.setPower(frontRightPower);
+            frontRightMotor.setPower(-frontRightPower);
             backRightMotor.setPower(backRightPower);
+
+            if (gamepad1.dpad_up) {
+                direction = 1;
+            } else if (gamepad1.dpad_down) {
+                direction = -1;
+            }
 
             // DRIVER TWO BELOW
 
-            if (gamepad2.dpad_left)
-                mode = 0;
-            else if (gamepad2.dpad_right)
-                mode = 1;
 
-
-            if (gamepad2.right_stick_y != 0)
-                slides.setPower(gamepad2.right_stick_y);
-            else
-                slides.stop();
-
-
-            if (mode == 1) { // INTAKE MODE
+            if (gamepad2.dpad_down) {
+                mode = 1; // sample intake
                 hinge.intake();
-                arm.setPosition(bot.testAngle(-1200, 3, slides.getPos()), 0.3);
-
-                if (gamepad2.right_bumper) {
-                    arm.setPower(0.3);
-                    waitSeconds(0.4);
-                    arm.setPower(0.0);
-                    claw.close();
-                    while(!slides.setPosition(300, 1.0));
-                    targetArmTicks = -100;
-                    mode = 0;
-                } else {
-                    claw.open();
-                }
-            } else {
-                hinge.outake();
-                if (gamepad2.left_stick_y != 0) {
-                    arm.setPower(-gamepad2.left_stick_y);
-                    targetArmTicks = arm.getPos();
-                } else {
-                    arm.setPosition(targetArmTicks, 0.5);
-                }
+                targetArmTicks = 440;
+            } else if (gamepad2.dpad_left) {
+                mode = 2; // specimen intake
+                claw.open();
+                hinge.setPosition(0.4);
+                targetArmTicks = 465;
+            } else if (gamepad2.dpad_up) {
+                hinge.intake();
+                targetArmTicks = 1250;
+                mode = 4; // Basket Outtake
+            } else if (gamepad2.dpad_right) {
+                mode = 5; // specimen outtake
+                hinge.outtake();
+            } else if (gamepad2.a) {
+                mode = 3;
             }
 
+            if (mode != 3) {
+                if (gamepad2.right_stick_y != 0)
+                    slides.setPower(gamepad2.right_stick_y);
+                else
+                    slides.stop();
+            }
+
+
+
+            switch (mode) {
+                case 1: // Sample Intake
+                    //arm.setPosition(bot.testAngle(-1000, 3, slides.getPos()), 0.3);
+                    /*if (gamepad2.left_stick_y != 0) {
+                        mode = 0;
+                    }*/
+                    if (gamepad2.x || gamepad2.right_bumper) {
+                        claw.close();
+                        waitSeconds(0.3);
+                        while(!slides.setPosition(10, 1.0));
+                        targetArmTicks = 1300;
+
+                        mode = 3;
+                    }
+                    break;
+                case 2: // Specimen Intake
+                    /*hinge.setPosition(0.5);
+                    targetArmTicks = -900;*/
+                    if (gamepad2.x || gamepad2.right_bumper) {
+                        claw.close();
+                        waitSeconds(0.3);
+                        hinge.outtake();
+                        waitSeconds(0.3);
+                        targetArmTicks = 1390;
+                        mode = 3;
+                    }
+                    break;
+                case 3: // Ready
+                    slides.setPosition(0, 0.8);
+
+                    if (gamepad2.right_stick_y != 1) {
+                        mode = 5;
+                    }
+                    /*if (slides.getPos() < 400) {
+                        targetArmTicks = -30;
+                    }*/
+                    break;
+                case 4: // Sample Outtake
+                    if (gamepad2.x || gamepad2.right_bumper) {
+                        hinge.outtake();
+                    }
+                    if (gamepad2.a) {
+                        claw.open();
+                        waitSeconds(0.3);
+                        hinge.intake();
+                        waitSeconds(0.2);
+                        mode = 3;
+                    }
+                    break;
+                case 5: // Specimen Outtake
+                    if (gamepad2.x || gamepad2.right_bumper) {
+                        hinge.setPosition(0.3);
+                        waitSeconds(0.3);
+                        arm.setPower(0.1);
+                        while(!slides.setPosition(650, 0.7));
+                        arm.setPower(0);
+                        waitSeconds(0.2);
+                        claw.open();
+                        while(!slides.setPosition(0, 1));
+                        waitSeconds(0.2);
+
+                        hinge.intake();
+                        mode = 3;
+                    }
+                    break;
+
+                default:
+            }
+
+            if (gamepad2.left_stick_y != 0) {
+                arm.setPower(-(gamepad2.left_stick_y/3));
+                targetArmTicks = arm.getPos();
+            } else {
+                if (targetArmTicks > 1390) targetArmTicks = 1390;
+                arm.setPosition(targetArmTicks, 0.4);
+            }
+
+            /*if (gamepad2.right_trigger != 0) {
+                wrist.right(gamepad2.right_trigger);
+            } else if (gamepad2.left_trigger != 0) {
+                wrist.left(gamepad2.left_trigger);
+            } else {
+                wrist.stop();
+            }*/
 
             if (gamepad2.a && !gamepad2.x) {
                 claw.open();
@@ -128,21 +216,20 @@ public class MainTeleOp extends LinearOpMode {
                 claw.close();
             }
 
-            if (gamepad2.dpad_down) {
-                targetArmTicks = -810;
-            }
+            /*if (gamepad2.dpad_down) {
+                hinge.setPosition(1.0);
+            } else if (gamepad2.dpad_up) {
+                hinge.setPosition(0.0);
+            } else if (gamepad2.dpad_left) {
+                hinge.setPosition(0.5);
+            }*/
 
             if (gamepad2.right_bumper && gamepad2.left_bumper) {
                 slides.setPower(1.0);
                 while(opModeIsActive()) {
                     if (gamepad2.a && gamepad2.x) break;
-                };
+                }
             }
-
-            if (gamepad2.right_bumper && !previousXButton) {
-                claw.toggle();
-            }
-            previousXButton = gamepad2.right_bumper;
 
 
 
